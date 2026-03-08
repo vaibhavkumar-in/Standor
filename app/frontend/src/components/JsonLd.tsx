@@ -19,9 +19,9 @@ export function OrganizationJsonLd() {
       'https://github.com/standor',
     ],
     description:
-      'Standor is a FAANG-grade, open-source network forensics platform for uploading, visualising, and analysing PCAP/PCAPNG captures in 3D with real-time collaboration.',
+      'Standor is an AI-powered real-time technical interview platform for engineering teams. Collaborative Monaco editor, code execution, and instant AI candidate evaluation.',
     foundingDate: '2024',
-    applicationCategory: 'SecurityApplication',
+    applicationCategory: 'BusinessApplication',
   };
 
   return (
@@ -39,14 +39,14 @@ export function SoftwareAppJsonLd() {
     '@type': 'SoftwareApplication',
     name: 'Standor',
     operatingSystem: 'Web',
-    applicationCategory: 'SecurityApplication',
+    applicationCategory: 'BusinessApplication',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD',
     },
     description:
-      'Upload PCAP and PCAPNG captures, explore packets in an interactive 3D OSI slicer, annotate anomalies, set policy alert rules, and collaborate in real time.',
+      'Create interview rooms, collaborate in real-time with Monaco Editor, run code in 10+ languages, and get instant AI-generated scoring and complexity analysis.',
     url: 'https://standor.dev',
   };
 

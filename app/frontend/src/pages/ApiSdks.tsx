@@ -72,18 +72,18 @@ export default function ApiSdks() {
             {[
               {
                 icon: Upload,
-                title: 'Cloud PCAP Ingestion',
-                desc: 'Upload PCAP and PCAPNG files directly from your browser — up to 100 MB. No local tools, no command line. Parsing, entropy scoring, anomaly detection, and deep packet inspection all run server-side and complete in seconds.',
+                title: 'Code Execution Sandbox',
+                desc: 'Run candidate code in isolated Piston runtimes supporting 10+ languages — Python, TypeScript, Go, Java, Rust, and more. Results return in milliseconds. No setup required from the candidate side.',
               },
               {
                 icon: BarChart2,
-                title: 'Deep Packet Inspection',
-                desc: 'Every uploaded capture is automatically classified by application — HTTPS, DNS, YouTube, Discord, GitHub, Zoom, and 30+ more categories. Detected domains, flow counts, and application breakdowns are immediately available in the session view.',
+                title: 'AI Code Evaluation',
+                desc: 'Every interview session can trigger a deep AI analysis via Claude. Time and space complexity scoring, bug detection, correctness verification, and structured improvement suggestions are all returned as structured JSON.',
               },
               {
                 icon: Zap,
-                title: 'Policy Rules Engine',
-                desc: 'Define custom alert conditions — for example, trigger a webhook when a session contains high-entropy traffic on non-standard ports. Rules are evaluated on every upload and fire the alert.triggered webhook event when matched.',
+                title: 'Webhook Events',
+                desc: 'Subscribe to real-time interview lifecycle events — room created, candidate joined, code executed, AI analysis completed, session ended. Drive your ATS, Slack notifications, or scorecard automation with a single webhook URL.',
               },
               {
                 icon: Users,

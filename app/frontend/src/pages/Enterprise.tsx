@@ -1,327 +1,91 @@
-import { ShieldCheck, ArrowRight, Zap, Target, Lock, Cpu, Database, Globe, Key, CheckCircle2, Loader2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import api from '../utils/api'; // using the existing api.ts since it matches the Standor MERN setup
+import { Link } from 'react-router-dom';
+import { ArrowRight, Building, Lock, Server } from 'lucide-react';
 
 export default function Enterprise() {
-  const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    role: "",
-    message: ""
-  });
-
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!form.name || !form.email || !form.company || !form.message) {
-      toast.error("Please complete all required fields.");
-      return;
-    }
-
-    setSubmitting(true);
-
-    try {
-      await api.post("/enterprise/contact", {
-        ...form,
-        plan: "enterprise"
-      });
-
-      setSubmitted(true);
-
-      toast.success(
-        "Enterprise inquiry received. Our team will respond within one business day."
-      );
-    } catch (err) {
-      toast.error("Submission failed. Please try again later.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   return (
-    <div className="pt-32 pb-24 px-6">
-      <div className="max-w-7xl mx-auto">
+    <main className="flex flex-col items-center w-full min-h-screen bg-bg-900 pb-24">
 
-        {/* HERO */}
+      {/* ─── HEADER ─── */}
+      <section className="w-full pt-32 pb-16 px-4 ns-container flex flex-col items-start text-left border-b border-white/5">
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">Enterprise.</h1>
+        <p className="text-xl text-muted max-w-2xl">
+          Deploy Standor securely across your entire organization. Single Sign-On, custom VPCs, and dedicated account management.
+        </p>
+      </section>
 
-        <div className="max-w-4xl mb-32">
-          <span className="text-[11px] font-mono uppercase tracking-[0.35em] text-neutral-400">
-            Standor Enterprise
-          </span>
-
-          <h1 className="text-[clamp(2.5rem,7vw,5rem)] font-bold text-white leading-[0.9] mt-6 mb-8">
-            Packet forensics
-            <br />
-            <span className="text-neutral-500">
-              at global scale
-            </span>
-          </h1>
-
-          <p className="text-lg text-neutral-400 leading-relaxed max-w-2xl">
-            Deploy Standor across distributed infrastructure and analyze
-            terabytes of packet data in seconds. Built for security teams,
-            incident response, and digital forensics.
-          </p>
-        </div>
-
-
-        {/* ENTERPRISE FEATURES */}
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-48">
-
-          {[
-            {
-              icon: ShieldCheck,
-              title: "Compliance Ready",
-              desc: "Designed for SOC2, GDPR, and regulated environments with immutable audit trails."
-            },
-            {
-              icon: Lock,
-              title: "Zero Trust Access",
-              desc: "Integrates with SAML / OIDC identity providers with granular RBAC controls."
-            },
-            {
-              icon: Cpu,
-              title: "Distributed Processing",
-              desc: "Horizontally scalable DPI nodes capable of processing multi-TB traffic workloads."
-            },
-            {
-              icon: Database,
-              title: "Hybrid Storage",
-              desc: "Keep PCAP data inside your infrastructure — Standor never stores raw traffic."
-            },
-            {
-              icon: Globe,
-              title: "Global Mesh",
-              desc: "Unify packet analysis across regions into a single searchable investigation layer."
-            },
-            {
-              icon: Key,
-              title: "Customer-Managed Keys",
-              desc: "All forensic snapshots encrypted using your own KMS or Vault managed keys."
-            }
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="bg-neutral-900 border border-white/5 rounded-3xl p-8 hover:border-white/20 transition"
-            >
-              <div className="mb-6 text-white/80">
-                <item.icon size={26} />
-              </div>
-
-              <h3 className="text-lg font-semibold text-white mb-3">
-                {item.title}
-              </h3>
-
-              <p className="text-sm text-neutral-400 leading-relaxed">
-                {item.desc}
-              </p>
+      <section className="ns-container w-full grid grid-cols-1 lg:grid-cols-2 gap-16 mt-16 px-4">
+        {/* Left Column - Benefits */}
+        <div className="flex flex-col gap-12">
+          <div className="flex gap-4">
+            <div className="w-12 h-12 rounded-lg border border-border bg-surface flex items-center justify-center shrink-0">
+              <Lock className="text-white" size={20} />
             </div>
-          ))}
-
-        </div>
-
-
-        {/* ENGINE SECTION */}
-
-        <div className="grid lg:grid-cols-2 gap-20 items-center mb-48">
-
-          <div>
-            <h2 className="text-4xl font-bold text-white mb-6 leading-tight">
-              Industrial-grade packet engine
-            </h2>
-
-            <p className="text-neutral-400 mb-10 leading-relaxed">
-              Standor’s DPI engine is optimized for massive network captures.
-              Built with low-level systems programming and parallel parsing
-              architecture.
-            </p>
-
-            <div className="space-y-8">
-
-              <div className="flex gap-5">
-                <Zap className="text-white/80" />
-                <div>
-                  <p className="text-white font-semibold">
-                    Parallel PCAP slicing
-                  </p>
-                  <p className="text-neutral-500 text-sm">
-                    Massive captures split into micro-segments for instant preview.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-5">
-                <Target className="text-white/80" />
-                <div>
-                  <p className="text-white font-semibold">
-                    Heuristic detection engine
-                  </p>
-                  <p className="text-neutral-500 text-sm">
-                    Custom protocol detection via plugin architecture.
-                  </p>
-                </div>
-              </div>
-
+            <div>
+              <h3 className="text-xl font-bold mb-2">SOC2 Type II & GDPR</h3>
+              <p className="text-muted leading-relaxed">Security is our foundation. We undergo annual audits and penetration testing to ensure your interview data is strongly encrypted at rest and in transit.</p>
             </div>
           </div>
-
-          <div className="hidden lg:flex items-center justify-center">
-            <ShieldCheck size={120} className="text-white/80" />
+          <div className="flex gap-4">
+            <div className="w-12 h-12 rounded-lg border border-border bg-surface flex items-center justify-center shrink-0">
+              <Server className="text-accent" size={20} />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-2">Dedicated Infrastructure</h3>
+              <p className="text-muted leading-relaxed">Run code execution sandboxes in your own AWS/GCP VPC. Keep proprietary code entirely isolated from the public cloud.</p>
+            </div>
           </div>
-
+          <div className="flex gap-4">
+            <div className="w-12 h-12 rounded-lg border border-border bg-surface flex items-center justify-center shrink-0">
+              <Building className="text-white" size={20} />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-2">Workspace & SSO</h3>
+              <p className="text-muted leading-relaxed">SAML/SSO integration (Okta, Azure AD, Google Workspace). Automated provisioning and de-provisioning of interviewer seats.</p>
+            </div>
+          </div>
         </div>
 
-
-        {/* ENTERPRISE CONTACT FORM */}
-
-        <div className="grid lg:grid-cols-2 gap-16 mb-48">
-
-          <div>
-
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Contact the Standor team
-            </h2>
-
-            <p className="text-neutral-400 mb-8 leading-relaxed">
-              Request enterprise deployment, custom support agreements,
-              or private infrastructure installation.
-            </p>
-
-            <ul className="space-y-3 text-sm text-neutral-400">
-              <li>• Air-gapped deployments</li>
-              <li>• SSO integration</li>
-              <li>• Compliance & retention policies</li>
-              <li>• Dedicated security support</li>
-              <li>• Procurement & SLA contracts</li>
-            </ul>
-
-          </div>
-
-
-          {/* FORM */}
-
-          <div className="bg-neutral-900 border border-white/10 rounded-3xl p-8">
-
-            {submitted ? (
-
-              <div className="text-center py-12 space-y-4">
-                <CheckCircle2 size={36} className="mx-auto text-green-400" />
-                <p className="text-white font-semibold">
-                  Inquiry received
-                </p>
-                <p className="text-neutral-500 text-sm">
-                  Our team will contact you shortly.
-                </p>
+        {/* Right Column - Contact Form */}
+        <div className="bg-surface border border-border rounded-2xl p-8 shadow-2xl relative overflow-hidden h-fit">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[60px] pointer-events-none" />
+          <h2 className="text-2xl font-bold mb-6">Contact our sales team</h2>
+          <form className="flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-text-secondary w-full">First name
+                  <input type="text" className="w-full mt-1 px-4 py-2.5 bg-bg-900 border border-border rounded-lg focus:outline-none focus:border-accent text-white transition-colors" placeholder="Jane" />
+                </label>
               </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-text-secondary w-full">Last name
+                  <input type="text" className="w-full mt-1 px-4 py-2.5 bg-bg-900 border border-border rounded-lg focus:outline-none focus:border-accent text-white transition-colors" placeholder="Doe" />
+                </label>
+              </div>
+            </div>
 
-            ) : (
+            <label className="text-sm font-medium text-text-secondary w-full">Work email
+              <input type="email" className="w-full mt-1 px-4 py-2.5 bg-bg-900 border border-border rounded-lg focus:outline-none focus:border-accent text-white transition-colors" placeholder="jane@company.com" />
+            </label>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <label className="text-sm font-medium text-text-secondary w-full">Company size
+              <select className="w-full mt-1 px-4 py-2.5 bg-bg-900 border border-border rounded-lg focus:outline-none focus:border-accent text-white transition-colors appearance-none">
+                <option>1-50 employees</option>
+                <option>51-200 employees</option>
+                <option>201-1000 employees</option>
+                <option>1000+ employees</option>
+              </select>
+            </label>
 
-                <input
-                  placeholder="Name"
-                  value={form.name}
-                  onChange={e =>
-                    setForm({ ...form, name: e.target.value })
-                  }
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-2 text-sm text-white"
-                />
+            <label className="text-sm font-medium text-text-secondary w-full">How can we help?
+              <textarea rows={4} className="w-full mt-1 px-4 py-2.5 bg-bg-900 border border-border rounded-lg focus:outline-none focus:border-accent text-white transition-colors resize-none" placeholder="Tell us about your hiring volume and current tech stack..." />
+            </label>
 
-                <input
-                  placeholder="Company"
-                  value={form.company}
-                  onChange={e =>
-                    setForm({ ...form, company: e.target.value })
-                  }
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-2 text-sm text-white"
-                />
-
-                <input
-                  placeholder="Work email"
-                  type="email"
-                  value={form.email}
-                  onChange={e =>
-                    setForm({ ...form, email: e.target.value })
-                  }
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-2 text-sm text-white"
-                />
-
-                <textarea
-                  rows={4}
-                  placeholder="Message"
-                  value={form.message}
-                  onChange={e =>
-                    setForm({ ...form, message: e.target.value })
-                  }
-                  className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-2 text-sm text-white"
-                />
-
-                <button
-                  disabled={submitting}
-                  className="w-full bg-white text-black py-3 rounded-lg font-semibold flex items-center justify-center gap-2"
-                >
-                  {submitting ? (
-                    <Loader2 size={16} className="animate-spin" />
-                  ) : (
-                    <ArrowRight size={16} />
-                  )}
-
-                  {submitting ? "Sending..." : "Send inquiry"}
-                </button>
-
-              </form>
-
-            )}
-
-          </div>
-
-        </div>
-
-
-        {/* COMMUNITY CTA */}
-
-        <div className="text-center border border-white/10 rounded-3xl p-16">
-
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Secure infrastructure with Standor
-          </h2>
-
-          <p className="text-neutral-400 max-w-2xl mx-auto mb-10">
-            Standor remains community-driven and open-source at its core.
-            Advanced forensic tools accessible to every security engineer.
-          </p>
-
-          <div className="flex justify-center gap-6">
-
-            <button
-              onClick={() => navigate("/register")}
-              className="bg-white text-black px-8 py-3 rounded-full font-semibold flex items-center gap-2"
-            >
-              Get Started
-              <ArrowRight size={16} />
+            <button type="button" className="w-full mt-4 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2">
+              Submit Request <ArrowRight size={16} />
             </button>
-
-            <button
-              onClick={() => navigate("/docs")}
-              className="border border-white/20 text-white px-8 py-3 rounded-full"
-            >
-              Documentation
-            </button>
-
-          </div>
-
+          </form>
         </div>
-
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

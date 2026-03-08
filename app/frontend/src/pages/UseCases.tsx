@@ -3,76 +3,76 @@ import { useNavigate } from 'react-router-dom';
 
 const USE_CASES = [
   {
-    icon: Shield,
-    title: 'Incident Response',
-    desc: 'When a breach is detected, every second counts. Standor lets IR teams reconstruct attack timelines from raw packets and identify lateral movement in minutes.',
+    icon: Users,
+    title: 'Engineering Hiring',
+    desc: 'Run structured technical interviews at any scale. Standor gives every candidate the same high-signal environment — collaborative Monaco editor, AI scoring, and session replay.',
     benefits: [
-      { text: '65% faster root cause analysis', icon: Clock },
-      { text: 'Verify lateral movement paths', icon: Search },
-      { text: 'Court-admissible session logs', icon: ShieldCheck }
+      { text: '65% less interviewer prep time', icon: Clock },
+      { text: 'Consistent rubric across candidates', icon: ShieldCheck },
+      { text: 'AI-generated scorecard per session', icon: FileCheck }
     ],
     color: '#3B82F6',
-    path: '/architecture#forensic-engine'
+    path: '/how-it-works'
   },
   {
     icon: Search,
-    title: 'SOC Triage',
-    desc: 'SOC analysts deal with alert fatigue daily. Standor speeds up validation by providing deep packet inspection with protocol-aware filtering.',
+    title: 'Talent Screening',
+    desc: 'Screen 10x more candidates without burning out your engineers. Async-friendly structured sessions with AI pre-scoring let recruiters triage before engineering reviews.',
     benefits: [
-      { text: '80% reduction in false positives', icon: TrendingDown },
-      { text: 'Direct packet-to-alert mapping', icon: Zap },
-      { text: 'Team-wide shared annotations', icon: Users }
+      { text: '80% faster first-round filtering', icon: TrendingDown },
+      { text: 'Async review from session replay', icon: Eye },
+      { text: 'ATS integration for score push', icon: Zap }
     ],
     color: '#22C55E',
-    path: '/#collaboration'
+    path: '/integrations'
   },
   {
     icon: Bug,
-    title: 'Threat Hunting',
-    desc: 'Proactive hunting requires surfacing anomalies without predefined rules. Our entropy radar reveals suspicious patterns that signatures miss.',
+    title: 'Internship & Grad Hiring',
+    desc: 'Level the playing field. Standor\'s guided problem library and real-time collaboration let early-career candidates demonstrate their thinking process — not just output.',
     benefits: [
-      { text: 'Surface zero-day C2 tunnels', icon: Bug },
-      { text: 'Statistical anomaly scoring', icon: TrendingUp },
-      { text: 'Visual entropy fingerprinting', icon: Eye }
+      { text: 'EASY + MEDIUM problem library', icon: Bug },
+      { text: 'Live hints without giving answers', icon: TrendingUp },
+      { text: 'Communication score in AI report', icon: Eye }
     ],
     color: '#FBBF24',
-    path: '/features#entropy'
+    path: '/problems'
   },
   {
     icon: Zap,
-    title: 'SRE & Debugging',
-    desc: 'When production fails, SREs need packet-level visibility. Pinpoint the root cause of network latency and TCP resets instantly.',
+    title: 'Contractor Vetting',
+    desc: 'Quickly validate a contractor\'s skills before onboarding. A 30-minute Standor session produces an objective, reproducible code quality report you can share across your team.',
     benefits: [
-      { text: 'Identify TCP storm sources <1s', icon: Zap },
-      { text: 'Visualize DNS/TLS handshake lag', icon: Clock },
-      { text: 'Zero-latency pcap navigation', icon: Zap }
+      { text: 'Session results in under 30 min', icon: Zap },
+      { text: 'Portable PDF report export', icon: Clock },
+      { text: 'No account required for candidate', icon: Zap }
     ],
     color: '#06B6D4',
-    path: '/docs#performance'
+    path: '/how-it-works'
   },
   {
     icon: FileCheck,
-    title: 'Digital Forensics',
-    desc: 'Legal requires court-admissible evidence. Our chain-of-custody logging and IP obfuscation ensure integrity throughout the process.',
+    title: 'Promotion Assessments',
+    desc: 'Use Standor internally to run promotion-readiness coding assessments for senior engineers — consistent, objective, and free from manager bias.',
     benefits: [
-      { text: 'Immutable SHA-256 hashing', icon: Lock },
-      { text: 'GDPR-compliant PII masking', icon: Shield },
-      { text: 'Verifiable export manifests', icon: FileCheck }
+      { text: 'HARD problems for senior track', icon: Lock },
+      { text: 'Blind grading via anonymous rooms', icon: Shield },
+      { text: 'Exportable audit trail', icon: FileCheck }
     ],
     color: '#8B5CF6',
-    path: '/architecture#persistence-layer'
+    path: '/training'
   },
   {
     icon: Scale,
-    title: 'Compliance & Audit',
-    desc: 'PCI DSS, HIPAA, and SOC 2 require provable monitoring. Generate the visibility and documentation needed for your next audit.',
+    title: 'Enterprise Compliance',
+    desc: 'For regulated industries that require documentation of every hiring decision. Standor session records and AI analysis provide a structured, defensible evidence trail.',
     benefits: [
-      { text: 'Automated compliance reporting', icon: FileCheck },
-      { text: 'Provable traffic isolation', icon: Scale },
-      { text: 'On-premise data residency', icon: Database }
+      { text: 'Immutable session records', icon: FileCheck },
+      { text: 'GDPR-compliant data handling', icon: Scale },
+      { text: 'On-premise deployment option', icon: Database }
     ],
     color: '#EF4444',
-    path: '/privacy'
+    path: '/security'
   },
 ];
 
@@ -136,12 +136,12 @@ export default function UseCases() {
           <div className="absolute inset-0 bg-ns-accent/5 blur-[120px] -z-10" />
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-white mb-6 tracking-tighter">Bespoke solutions for <br />critical infrastructure.</h2>
+              <h2 className="text-4xl font-bold text-white mb-6 tracking-tighter">Built for every <br />hiring context.</h2>
               <p className="text-lg text-ns-grey-400 mb-8">
-                We specialize in sectors where network integrity is non-negotiable. Our platform adapts to the unique regulatory and technical constraints of your industry.
+                From early-career grad hiring to senior staff assessments — Standor adapts to your team's evaluation criteria, problem library, and reporting needs.
               </p>
               <div className="flex flex-wrap gap-3">
-                {['FinTech', 'HealthCare', 'Defense', 'Energy', 'GovTech'].map(tag => (
+                {['Startups', 'Scale-ups', 'Enterprise', 'Agencies', 'Academia'].map(tag => (
                   <span key={tag} className="px-5 py-2 rounded-full bg-white/[0.03] border border-white/10 text-[10px] font-bold text-ns-grey-300 uppercase tracking-widest">
                     {tag}
                   </span>
@@ -150,12 +150,12 @@ export default function UseCases() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="ns-glass p-8 rounded-3xl border border-white/5 space-y-2">
-                <div className="text-3xl font-bold text-white">99%</div>
-                <div className="text-[10px] font-mono text-ns-grey-500 uppercase tracking-widest">Packet Reassembly</div>
+                <div className="text-3xl font-bold text-white">65%</div>
+                <div className="text-[10px] font-mono text-ns-grey-500 uppercase tracking-widest">Less Prep Time</div>
               </div>
               <div className="ns-glass p-8 rounded-3xl border border-white/5 space-y-2 translate-y-8">
-                <div className="text-3xl font-bold text-white">0s</div>
-                <div className="text-[10px] font-mono text-ns-grey-500 uppercase tracking-widest">Latency Floor</div>
+                <div className="text-3xl font-bold text-white">10×</div>
+                <div className="text-[10px] font-mono text-ns-grey-500 uppercase tracking-widest">Screening Throughput</div>
               </div>
             </div>
           </div>

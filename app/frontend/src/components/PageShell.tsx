@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import Footer from './Footer';
+
 import { OrganizationJsonLd, BreadcrumbJsonLd } from './JsonLd';
 
 const SITE_URL = 'https://standor.dev';
@@ -33,7 +33,7 @@ function buildBreadcrumbs(pathname: string) {
 export default function PageShell({
   children,
   title = 'Standor — Technical Interview Platform',
-  description = 'Reconstruct network truth, surface anomalies, and collaborate in real-time with Standor.',
+  description = 'The standard for technical interviews — real-time collaborative coding, AI-powered analysis, and instant session replay.',
   image,
   transparentNav = false
 }: PageShellProps) {
@@ -48,7 +48,7 @@ export default function PageShell({
   const canonicalUrl = `${SITE_URL}${pathname}`;
 
   return (
-    <div className="min-h-screen flex flex-col bg-ns-bg">
+    <div className="min-h-screen flex flex-col bg-[#0B0B0D]">
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -71,7 +71,7 @@ export default function PageShell({
         {children}
       </main>
 
-      <Footer />
+
     </div>
   );
 }

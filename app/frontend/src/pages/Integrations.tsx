@@ -6,33 +6,33 @@ import api from '../utils/api';
 
 const INTEGRATIONS = [
   {
-    category: 'SIEM & Log Management',
+    category: 'Applicant Tracking Systems',
     icon: Activity,
     items: [
-      { name: 'Splunk Security', desc: 'Forward forensic snapshots and anomaly alerts to Splunk HEC with zero-latency streaming.', status: 'Available' },
-      { name: 'Elastic Stack', desc: 'Native ECS-compliant metadata streaming for unified observability and long-term archival.', status: 'Available' },
-      { name: 'Microsoft Sentinel', desc: 'Microsoft Sentinel Logic Apps connector for automated triage and incident escalation.', status: 'Available' },
-      { name: 'CrowdStrike', desc: 'Sync packet traces with CrowdStrike Falcon Insight sessions for host-network correlation.', status: 'Coming Soon' },
+      { name: 'Greenhouse', desc: 'Push completed interview scorecards directly into Greenhouse candidate profiles. No copy-paste, no manual entry.', status: 'Available' },
+      { name: 'Lever', desc: 'Sync Standor interview reports to Lever opportunities automatically when a session ends.', status: 'Available' },
+      { name: 'Workday Recruiting', desc: 'Enterprise connector for Workday — attach AI-generated feedback to requisitions with SSO passthrough.', status: 'Available' },
+      { name: 'Ashby', desc: 'Native Ashby integration for modern recruiting teams — bi-directional candidate status sync.', status: 'Coming Soon' },
     ],
   },
   {
-    category: 'Cloud & Infrastructure',
+    category: 'Developer Tools',
     icon: Cloud,
     items: [
-      { name: 'AWS S3 Ingest', desc: 'Auto-scan S3 buckets for new PCAPs and trigger distributed forensic workers.', status: 'Available' },
-      { name: 'Zeek / Bro', desc: 'Import Zeek log metadata to correlate with raw packet streams for deep protocol analysis.', status: 'Available' },
-      { name: 'GCS Archival', desc: 'Cold storage integration for massive forensic evidence sets with immutable buckets.', status: 'Available' },
-      { name: 'Docker Compose', desc: 'One-click local deployment for sandboxed internal analysis and developer testing.', status: 'Available' },
+      { name: 'GitHub', desc: 'Create candidate repositories from interview sessions. Auto-push final snapshots as a PR for offline review.', status: 'Available' },
+      { name: 'VS Code Extension', desc: 'Allow candidates to use their local VS Code environment that syncs live with the Standor session.', status: 'Coming Soon' },
+      { name: 'Docker / Self-host', desc: 'One-command Docker Compose deployment for on-premise enterprise installations with full data sovereignty.', status: 'Available' },
+      { name: 'Piston Runtime', desc: 'Pluggable code execution backend. Swap Piston for your own sandboxed runtime with a single environment variable.', status: 'Available' },
     ],
   },
   {
-    category: 'Alerting & Collaboration',
+    category: 'Communication & Notifications',
     icon: MessageSquare,
     items: [
-      { name: 'Slack Connect', desc: 'Real-time session updates and mentions in your security channels for rapid response.', status: 'Available' },
-      { name: 'PagerDuty', desc: 'High-severity forensic triggers for your on-call responders with automated escalations.', status: 'Available' },
-      { name: 'Jira Software', desc: 'Automatically create forensic evidence tickets with snapshots and direct links.', status: 'Available' },
-      { name: 'Discord', desc: 'Community-driven alert channels for open-source forensics teams and researchers.', status: 'Available' },
+      { name: 'Slack', desc: 'Receive interview lifecycle notifications in your hiring channel — room created, candidate joined, session completed with score.', status: 'Available' },
+      { name: 'Microsoft Teams', desc: 'Teams webhook connector for interview alerts and completed scorecard summaries in your hiring group.', status: 'Available' },
+      { name: 'Jira Software', desc: 'Automatically create interview debrief tickets with code snapshots and AI analysis linked from the session.', status: 'Available' },
+      { name: 'Notion', desc: 'Export structured interview reports to a Notion database for collaborative debrief and headcount planning.', status: 'Coming Soon' },
     ],
   },
 ];
@@ -95,14 +95,14 @@ export default function Integrations() {
           className="max-w-4xl mb-32"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ns-accent/10 border border-ns-accent/20 text-[10px] font-bold text-ns-accent uppercase tracking-[0.2em] mb-10">
-            Security Ecosystem
+            Hiring Ecosystem
           </div>
           <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-10 italic">
             Engineered for <br />
             <span className="text-ns-grey-600 not-italic">total connectivity.</span>
           </h1>
           <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
-            Standor connects seamlessly with the tools your security team already uses. No silos. No friction. Pure industrial-grade interoperability.
+            Standor connects seamlessly with the tools your recruiting and engineering teams already use. No silos. No friction. Pure end-to-end hiring workflow automation.
           </p>
         </motion.div>
 
@@ -123,7 +123,7 @@ export default function Integrations() {
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold text-white tracking-tight">{group.category}</h2>
-                  <p className="text-[10px] font-bold text-ns-grey-500 uppercase tracking-widest mt-1">Direct Sink Endpoints Available</p>
+                  <p className="text-[10px] font-bold text-ns-grey-500 uppercase tracking-widest mt-1">Native Integration Available</p>
                 </div>
               </div>
 
@@ -175,27 +175,27 @@ export default function Integrations() {
               <div className="w-20 h-20 rounded-3xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white group-hover:text-ns-accent group-hover:bg-ns-accent/10 transition-all">
                 <Webhook size={40} />
               </div>
-              <h3 className="text-4xl font-bold text-white tracking-tighter">Programmatic <br />Forensics</h3>
-              <p className="text-lg text-ns-grey-500 max-w-sm leading-relaxed">Leverage our high-performance REST API and the PySculpt SDK to build custom automated hunting playbooks.</p>
+              <h3 className="text-4xl font-bold text-white tracking-tighter">Programmatic <br />Interview Ops</h3>
+              <p className="text-lg text-ns-grey-500 max-w-sm leading-relaxed">Leverage the Standor REST API to build custom hiring workflows, automated scheduling, and pipeline analytics integrations.</p>
             </div>
             <button className="px-10 py-4 bg-white text-black rounded-full font-bold text-sm hover:bg-ns-grey-100 transition-all shadow-2xl relative z-10 active:scale-95">
               Initialize API Key
             </button>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="ns-glass-dark rounded-[3.5rem] border border-white/[0.05] p-16 flex flex-col justify-between items-start gap-16 group hover:border-ns-teal/20 transition-all duration-700 relative overflow-hidden"
+            className="ns-glass-dark rounded-[3.5rem] border border-white/[0.05] p-16 flex flex-col justify-between items-start gap-16 group hover:border-[#0EA5A4]/20 transition-all duration-700 relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-ns-teal/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 bg-[#0EA5A4]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="space-y-8 relative z-10">
-              <div className="w-20 h-20 rounded-3xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white group-hover:text-ns-teal group-hover:bg-ns-teal/10 transition-all">
+              <div className="w-20 h-20 rounded-3xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-white group-hover:text-[#0EA5A4] group-hover:bg-[#0EA5A4]/10 transition-all">
                 <Box size={40} />
               </div>
-              <h3 className="text-4xl font-bold text-white tracking-tighter">Community <br />Modules</h3>
-              <p className="text-lg text-ns-grey-500 max-w-sm leading-relaxed">Contribute to our growing library of open-source protocol parsers and forensic detection widgets on GitHub.</p>
+              <h3 className="text-4xl font-bold text-white tracking-tighter">Community <br />Problem Sets</h3>
+              <p className="text-lg text-ns-grey-500 max-w-sm leading-relaxed">Contribute to our growing open-source library of curated interview problems, starter templates, and language-specific test cases on GitHub.</p>
             </div>
             <button className="px-10 py-4 border border-white/10 text-white rounded-full font-bold text-sm hover:bg-white/5 transition-all relative z-10 active:scale-95">
               Explore Our Repos
@@ -229,9 +229,9 @@ export default function Integrations() {
                 <div className="w-16 h-16 rounded-full bg-ns-accent/10 border border-ns-accent/20 flex items-center justify-center mx-auto mb-10">
                   <Zap size={24} className="text-ns-accent" />
                 </div>
-                <h4 className="text-3xl font-bold text-white mb-6 tracking-tight italic">Missing a critical sink?</h4>
+                <h4 className="text-3xl font-bold text-white mb-6 tracking-tight italic">Missing an integration?</h4>
                 <p className="text-lg text-ns-grey-500 max-w-xl mx-auto mb-12 leading-relaxed">
-                  We're constantly expanding our integration library based on direct SOC engineer feedback. Request a custom connector today.
+                  We expand our integration library based on direct engineering and recruiting team feedback. Request a custom connector today.
                 </p>
                 <button
                   onClick={() => setFormOpen(true)}
@@ -290,7 +290,7 @@ export default function Integrations() {
                       required
                       value={form.integration}
                       onChange={e => setForm(f => ({ ...f, integration: e.target.value }))}
-                      placeholder="e.g. Datadog, QRadar, Sumo Logic"
+                      placeholder="e.g. Greenhouse, Rippling, Notion"
                       className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-ns-grey-700 focus:border-white/20 focus:outline-none transition-colors"
                     />
                   </div>
@@ -300,7 +300,7 @@ export default function Integrations() {
                       type="text"
                       value={form.useCase}
                       onChange={e => setForm(f => ({ ...f, useCase: e.target.value }))}
-                      placeholder="Forward anomaly alerts, export evidence…"
+                      placeholder="Push scorecards to ATS, notify via Slack…"
                       className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-ns-grey-700 focus:border-white/20 focus:outline-none transition-colors"
                     />
                   </div>

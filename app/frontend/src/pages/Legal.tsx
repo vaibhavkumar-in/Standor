@@ -72,7 +72,7 @@ export default function Legal() {
               </p>
             </div>
             {[
-              { title: '1. Scope of Processing', body: 'Standor processes personal data solely to provide the services. Personal data processed may include: account information (email, name), uploaded PCAP files and derived packet metadata, and usage data for service operation and security.' },
+              { title: '1. Scope of Processing', body: 'Standor processes personal data solely to provide the services. Personal data processed may include: account information (email, name), interview session data and code submissions, and usage data for service operation and security.' },
               { title: '2. Instructions for Processing', body: 'Standor shall process personal data only on your documented instructions. By accepting these terms and using the services, you instruct us to process personal data for providing, maintaining, securing, and improving the services.' },
               { title: '3. Technical and Organisational Security Measures', body: 'We implement encryption in transit (TLS 1.2+) and at rest; access controls and authentication (MFA, RBAC); audit logging for all significant data operations; regular security testing; and employee access limited to service operation.' },
               { title: '4. Sub-processors', body: 'We may engage sub-processors (e.g., infrastructure hosting providers). We ensure sub-processors are bound by data protection obligations no less protective than this DPA.' },

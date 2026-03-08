@@ -2,13 +2,13 @@ import { useState, useMemo } from 'react';
 import { ArrowRight, Clock, TrendingUp, Users, Zap, BarChart2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-// Productivity improvement assumptions:
-// - Automated PCAP parsing eliminates ~80% of manual parsing overhead
-// - 3D protocol visualization reduces triage time by ~50%
-// - Real-time collaboration cuts back-and-forth by ~40%
-// - Combined effect: ~65% reduction in per-investigation time
+// Hiring efficiency assumptions:
+// - AI analysis eliminates ~70% of manual code review overhead per interview
+// - Real-time collaboration cuts debrief back-and-forth by ~40%
+// - Structured session reports reduce feedback-writing time by ~60%
+// - Combined effect: ~65% reduction in per-interview admin time
 const EFFICIENCY_GAIN = 0.65;
-const COLLAB_MULTIPLIER = 0.85; // team overhead reduction when >1 analyst
+const COLLAB_MULTIPLIER = 0.85; // team overhead reduction when >1 interviewer
 const HOURS_PER_DAY = 8;
 
 function Slider({
@@ -77,30 +77,30 @@ function MetricCard({
 
 export default function ROICalculator() {
   const navigate = useNavigate();
-  const [analysts, setAnalysts] = useState(3);
-  const [incidents, setIncidents] = useState(40);
-  const [hoursPerInvestigation, setHoursPerInvestigation] = useState(4);
+  const [interviewers, setInterviewers] = useState(3);
+  const [interviews, setInterviews] = useState(40);
+  const [hoursPerInterview, setHoursPerInterview] = useState(3);
 
   const results = useMemo(() => {
-    const teamFactor = analysts > 1 ? COLLAB_MULTIPLIER : 1;
-    const currentMonthlyHours = analysts * incidents * hoursPerInvestigation;
-    const savedHoursPerInvestigation = hoursPerInvestigation * EFFICIENCY_GAIN * teamFactor;
-    const savedMonthlyHours = analysts * incidents * savedHoursPerInvestigation;
+    const teamFactor = interviewers > 1 ? COLLAB_MULTIPLIER : 1;
+    const currentMonthlyHours = interviewers * interviews * hoursPerInterview;
+    const savedHoursPerInterview = hoursPerInterview * EFFICIENCY_GAIN * teamFactor;
+    const savedMonthlyHours = interviewers * interviews * savedHoursPerInterview;
     const savedDaysPerMonth = savedMonthlyHours / HOURS_PER_DAY;
     const savedDaysPerYear = savedDaysPerMonth * 12;
-    const newInvestigationTime = hoursPerInvestigation * (1 - EFFICIENCY_GAIN * teamFactor);
-    const mttrReduction = Math.round(EFFICIENCY_GAIN * teamFactor * 100);
+    const newInterviewTime = hoursPerInterview * (1 - EFFICIENCY_GAIN * teamFactor);
+    const timeReduction = Math.round(EFFICIENCY_GAIN * teamFactor * 100);
 
     return {
       currentMonthlyHours: Math.round(currentMonthlyHours),
       savedMonthlyHours: Math.round(savedMonthlyHours),
       savedDaysPerMonth: Math.round(savedDaysPerMonth * 10) / 10,
       savedDaysPerYear: Math.round(savedDaysPerYear),
-      newInvestigationTime: Math.round(newInvestigationTime * 10) / 10,
-      mttrReduction,
+      newInterviewTime: Math.round(newInterviewTime * 10) / 10,
+      timeReduction,
       capacityGain: Math.round((savedMonthlyHours / (currentMonthlyHours - savedMonthlyHours + 1)) * 100),
     };
-  }, [analysts, incidents, hoursPerInvestigation]);
+  }, [interviewers, interviews, hoursPerInterview]);
 
   return (
     <div className="pt-32 pb-24 px-6">
@@ -110,14 +110,14 @@ export default function ROICalculator() {
         <div className="max-w-4xl mb-24">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] mb-10">
             <BarChart2 size={12} className="text-ns-accent" />
-            <span className="text-[10px] font-mono text-ns-grey-400 uppercase tracking-widest">Productivity Calculator</span>
+            <span className="text-[10px] font-mono text-ns-grey-400 uppercase tracking-widest">Hiring ROI Calculator</span>
           </div>
           <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-10">
             See what your team <br />
             <span className="text-ns-grey-600">gets back.</span>
           </h1>
           <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
-            Estimate how much investigation time Standor can return to your analysts — based on automated parsing, visual triage, and real-time collaboration.
+            Estimate how much interviewing time Standor can return to your engineers — based on AI-assisted code review, automated scoring, and real-time collaboration.
           </p>
         </div>
 
@@ -127,39 +127,39 @@ export default function ROICalculator() {
           <div className="space-y-12">
             <div>
               <h2 className="text-2xl font-bold text-white tracking-tighter mb-2">Your current workflow</h2>
-              <p className="text-sm text-ns-grey-600">Adjust the sliders to match your team's metrics.</p>
+              <p className="text-sm text-ns-grey-600">Adjust the sliders to match your team's hiring metrics.</p>
             </div>
 
             <div className="ns-glass rounded-[2.5rem] border border-white/[0.04] p-10 space-y-12">
               <Slider
-                label="Analyst team size"
-                sublabel="How many people investigate network incidents"
+                label="Interviewers on team"
+                sublabel="Engineers who participate in technical interviews"
                 min={1} max={50} step={1}
-                value={analysts} unit="analysts"
-                onChange={setAnalysts}
+                value={interviewers} unit="people"
+                onChange={setInterviewers}
               />
               <Slider
-                label="Incidents per month"
-                sublabel="Network events requiring PCAP-level investigation"
+                label="Interviews per month"
+                sublabel="Technical coding interviews conducted across the team"
                 min={5} max={500} step={5}
-                value={incidents} unit="incidents"
-                onChange={setIncidents}
+                value={interviews} unit="interviews"
+                onChange={setInterviews}
               />
               <Slider
-                label="Time per investigation"
-                sublabel="Average hours from capture to conclusion, without tooling"
-                min={1} max={24} step={0.5}
-                value={hoursPerInvestigation} unit="hours"
-                onChange={setHoursPerInvestigation}
+                label="Time per interview"
+                sublabel="Hours from scheduling to written feedback, without tooling"
+                min={1} max={12} step={0.5}
+                value={hoursPerInterview} unit="hours"
+                onChange={setHoursPerInterview}
               />
             </div>
 
             {/* Assumptions note */}
             <div className="text-xs text-ns-grey-700 leading-relaxed space-y-1">
               <p className="font-mono uppercase tracking-widest text-[10px] text-ns-grey-700 mb-2">Model assumptions</p>
-              <p>• Automated parsing eliminates ~80% of manual decode overhead</p>
-              <p>• 3D protocol visualisation reduces triage time by ~50%</p>
-              <p>• Real-time collaboration reduces analyst coordination overhead</p>
+              <p>• AI analysis eliminates ~70% of manual code review overhead</p>
+              <p>• Structured session reports cut feedback-writing time by ~60%</p>
+              <p>• Real-time collaboration reduces debrief coordination overhead</p>
               <p>• Combined effective time reduction: ~{Math.round(EFFICIENCY_GAIN * 100)}%</p>
             </div>
           </div>
@@ -177,28 +177,28 @@ export default function ROICalculator() {
                 value={results.savedMonthlyHours.toLocaleString()}
                 unit="hrs / mo"
                 label="Hours recovered"
-                sub="Analyst time returned per month"
+                sub="Engineer time returned per month"
               />
               <MetricCard
                 icon={Users}
                 value={results.savedDaysPerYear.toLocaleString()}
                 unit="days / yr"
-                label="Analyst-days freed"
+                label="Eng-days freed"
                 sub="Equivalent full working days"
               />
               <MetricCard
                 icon={Zap}
-                value={`${results.mttrReduction}%`}
+                value={`${results.timeReduction}%`}
                 unit=""
-                label="MTTR reduction"
-                sub="Estimated mean-time-to-respond"
+                label="Time reduction"
+                sub="Estimated per-interview overhead saved"
               />
               <MetricCard
                 icon={TrendingUp}
-                value={`${results.newInvestigationTime}h`}
+                value={`${results.newInterviewTime}h`}
                 unit=""
-                label="New avg. investigation"
-                sub={`Down from ${hoursPerInvestigation}h per incident`}
+                label="New avg. interview"
+                sub={`Down from ${hoursPerInterview}h per session`}
               />
             </div>
 
@@ -217,7 +217,7 @@ export default function ROICalculator() {
                 <div className="flex-1 h-2 rounded-full bg-white/[0.06] relative overflow-hidden">
                   <div
                     className="absolute left-0 top-0 h-full rounded-full bg-ns-accent"
-                    style={{ width: `${Math.max(5, 100 - results.mttrReduction)}%` }}
+                    style={{ width: `${Math.max(5, 100 - results.timeReduction)}%` }}
                   />
                 </div>
                 <span className="text-xs text-ns-grey-400 w-16">{(results.currentMonthlyHours - results.savedMonthlyHours).toLocaleString()}h</span>
@@ -230,10 +230,10 @@ export default function ROICalculator() {
         <div className="ns-glass-dark rounded-[3.5rem] border border-white/[0.05] p-16 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-ns-accent/5 blur-[120px] -z-10" />
           <h2 className="text-3xl font-bold text-white mb-4 tracking-tighter">
-            Ready to reclaim {results.savedDaysPerMonth} analyst-days per month?
+            Ready to reclaim {results.savedDaysPerMonth} engineer-days per month?
           </h2>
           <p className="text-lg text-ns-grey-400 mb-10 max-w-xl mx-auto leading-relaxed">
-            Standor is completely free. Start your first investigation in minutes — no credit card, no enterprise lock-in.
+            Standor is completely free. Run your first interview session in minutes — no credit card, no enterprise lock-in.
           </p>
           <div className="flex items-center justify-center gap-4">
             <button

@@ -2,10 +2,17 @@ import { Server, Socket } from 'socket.io'
 
 export const registerMediaHandlers = (io: Server, socket: Socket) => {
     // Join a specific room for media signaling
-    socket.on('media:join', ({ roomId, userId }) => {
+    socket.on('media:join', ({ roomId, userId, userName }) => {
         socket.join(`media-${roomId}`)
-        socket.to(`media-${roomId}`).emit('media:user-joined', { userId })
-        console.log(`[Media] User ${userId} joined room ${roomId} signaling`)
+
+        // Notify others in the room that a new peer is available for connection
+        socket.to(`media-${roomId}`).emit('media:peer-joined', {
+            userId,
+            userName,
+            socketId: socket.id
+        })
+
+        console.log(`[Media] Peer ${userName} (${userId}) joined room ${roomId}`)
     })
 
     // Forward WebRTC offer

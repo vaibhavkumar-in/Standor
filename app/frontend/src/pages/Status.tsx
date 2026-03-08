@@ -14,7 +14,7 @@ const SERVICES = [
   { name: 'Authentication Service', icon: Zap },
   { name: 'Database (MongoDB)', icon: Database },
   { name: 'Real-time Collaboration (Socket.io)', icon: Cpu },
-  { name: 'PCAP Upload & Parsing', icon: Cpu },
+  { name: 'Code Execution (Piston)', icon: Cpu },
 ];
 
 function formatUptime(seconds: number): string {

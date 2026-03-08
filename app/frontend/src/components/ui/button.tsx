@@ -10,15 +10,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-accent text-white shadow-[0_0_15px_rgba(19,127,236,0.2)] hover:shadow-[0_0_20px_rgba(19,127,236,0.4)] hover:bg-accent/90 transition-all",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+          "bg-danger text-white shadow-sm hover:bg-danger/90",
         outline:
-          "border border-input shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-border hover:border-border-focus hover:bg-border/30 text-foreground shadow-sm transition-all",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-accent-secondary text-white shadow-[0_0_15px_rgba(175,37,244,0.2)] hover:shadow-[0_0_20px_rgba(175,37,244,0.4)] hover:bg-accent-secondary/90 transition-all",
+        tertiary:
+          "bg-accent-tertiary text-bg-900 shadow-[0_0_15px_rgba(204,255,0,0.2)] hover:shadow-[0_0_20px_rgba(204,255,0,0.4)] hover:bg-accent-tertiary/90 transition-all",
+        ghost: "hover:bg-white/5 hover:text-white transition-all",
+        link: "text-accent underline-offset-4 hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -36,7 +38,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 

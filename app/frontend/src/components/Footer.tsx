@@ -25,9 +25,9 @@ const LINK_GROUPS = [
   {
     title: 'Platform',
     links: [
-      { label: 'Security', href: '/security' },
-      { label: 'Gallery', href: '/gallery' },
-      { label: 'Training', href: '/training' },
+      { label: 'Dashboard', href: '/dashboard' },
+      { label: 'Problems', href: '/problems' },
+      { label: 'New Interview', href: '/create-session' },
     ],
   },
   {
@@ -35,6 +35,7 @@ const LINK_GROUPS = [
     links: [
       { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Customers', href: '/customers' },
     ],
   },
   {
@@ -104,7 +105,7 @@ export default function Footer() {
               onClick={() => handleLink('/')}
             >
               <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-                <span className="text-black font-black text-lg">NS</span>
+                <span className="text-black font-black text-lg">ST</span>
               </div>
               <span className="text-xl font-black text-white tracking-tighter uppercase italic">Standor</span>
             </div>
@@ -149,7 +150,7 @@ export default function Footer() {
         {/* Footer Accent Line & Language */}
         <div className="pt-6 border-t border-white/[0.04] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[9px] text-ns-grey-800 font-mono text-center md:text-left max-w-lg leading-relaxed">
-            Standor employs advanced DPI engines for network forensics. Not endorsed by or affiliated with Wireshark&reg; or similar entities. Built for research scale.
+            Standor is an AI-powered technical interview platform for engineering teams. Not affiliated with LeetCode&reg; or similar entities. Built for hiring at scale.
           </p>
 
           <div className="flex items-center gap-4">

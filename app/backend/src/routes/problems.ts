@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { z } from 'zod'
 import axios from 'axios'
-import { DEMO_PROBLEMS } from '../data/problems.js'
+import Problem from '../models/Problem.js'
 import { requireAuth } from '../middleware/auth.js'
 import { env } from '../config/env.js'
 
@@ -9,72 +9,99 @@ export const problemsRouter = Router()
 problemsRouter.use(requireAuth)
 
 // GET /api/problems?q=&difficulty=&category=&tag=
-problemsRouter.get('/', (req, res) => {
+problemsRouter.get('/', async (req, res) => {
     const { q, difficulty, category, tag } = req.query as Record<string, string | undefined>
 
-    let results = [...DEMO_PROBLEMS]
+    try {
+        const query: any = {}
 
-    if (q) {
-        const lq = q.toLowerCase()
-        results = results.filter(
-            (p) =>
-                p.title.toLowerCase().includes(lq) ||
-                p.description.toLowerCase().includes(lq) ||
-                p.tags.some((t) => t.toLowerCase().includes(lq)),
+        if (q) {
+            query.$or = [
+                { title: { $regex: q, $options: 'i' } },
+                { description: { $regex: q, $options: 'i' } },
+                { tags: { $regex: q, $options: 'i' } }
+            ]
+        }
+
+        if (difficulty) {
+            query.difficulty = difficulty.toUpperCase()
+        }
+
+        if (category) {
+            query.category = { $regex: `^${category}$`, $options: 'i' }
+        }
+
+        if (tag) {
+            query.tags = { $regex: `^${tag}$`, $options: 'i' }
+        }
+
+        const results = await Problem.find(query)
+
+        res.json(
+            results.map((p) => ({
+                id: p._id,
+                title: p.title,
+                difficulty: p.difficulty,
+                category: p.category,
+                tags: p.tags,
+                description: p.description,
+                examples: p.examples,
+                testCaseCount: p.testCases.length,
+            }))
         )
+    } catch {
+        res.status(500).json({ error: 'Failed to fetch problems' })
     }
-
-    if (difficulty) {
-        results = results.filter((p) => p.difficulty === difficulty.toUpperCase())
-    }
-
-    if (category) {
-        results = results.filter((p) => p.category.toLowerCase() === category.toLowerCase())
-    }
-
-    if (tag) {
-        results = results.filter((p) =>
-            p.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
-        )
-    }
-
-    res.json(
-        results.map(({ testCases, starterCode, ...meta }) => ({
-            ...meta,
-            testCaseCount: testCases.length,
-            examples: meta.examples,
-        })),
-    )
 })
 
 // GET /api/problems/categories
-problemsRouter.get('/categories', (_req, res) => {
-    const cats = [...new Set(DEMO_PROBLEMS.map((p) => p.category))].sort()
-    res.json(cats)
+problemsRouter.get('/categories', async (_req, res) => {
+    try {
+        const cats = await Problem.distinct('category')
+        res.json(cats.sort())
+    } catch {
+        res.status(500).json({ error: 'Failed to fetch categories' })
+    }
 })
 
 // GET /api/problems/tags
-problemsRouter.get('/tags', (_req, res) => {
-    const tags = [...new Set(DEMO_PROBLEMS.flatMap((p) => p.tags))].sort()
-    res.json(tags)
+problemsRouter.get('/tags', async (_req, res) => {
+    try {
+        const tags = await Problem.distinct('tags')
+        res.json(tags.sort())
+    } catch {
+        res.status(500).json({ error: 'Failed to fetch tags' })
+    }
 })
 
 // GET /api/problems/:slug
-problemsRouter.get('/:slug', (req, res) => {
+problemsRouter.get('/:slug', async (req, res) => {
     const slug = decodeURIComponent(req.params.slug ?? '')
-    const problem = DEMO_PROBLEMS.find(
-        (p) => p.title.toLowerCase() === slug.toLowerCase(),
-    )
+    try {
+        const problem = await Problem.findOne({ title: { $regex: `^${slug}$`, $options: 'i' } })
 
-    if (!problem) {
-        res.status(404).json({ error: 'Problem not found' })
-        return
+        if (!problem) {
+            res.status(404).json({ error: 'Problem not found' })
+            return
+        }
+
+        res.json({
+            id: problem._id,
+            title: problem.title,
+            difficulty: problem.difficulty,
+            category: problem.category,
+            tags: problem.tags,
+            description: problem.description,
+            examples: problem.examples,
+            starterCode: problem.starterCode.reduce((acc: any, curr) => {
+                acc[curr.language] = curr.code
+                return acc
+            }, {}),
+            testCases: problem.testCases.filter((tc) => !tc.hidden),
+        })
+    } catch {
+        res.status(500).json({ error: 'Failed to fetch problem' })
     }
-
-    res.json({
-        ...problem,
-        testCases: problem.testCases.filter((tc) => !tc.hidden),
-    })
 })
 
 // POST /api/problems/:slug/run — run code via Piston
@@ -91,7 +118,7 @@ problemsRouter.post('/:slug/run', async (req, res) => {
     }
 
     const slug = decodeURIComponent(req.params.slug ?? '')
-    const problem = DEMO_PROBLEMS.find((p) => p.title.toLowerCase() === slug.toLowerCase())
+    const problem = await Problem.findOne({ title: { $regex: `^${slug}$`, $options: 'i' } })
 
     if (!problem) {
         res.status(404).json({ error: 'Problem not found' })

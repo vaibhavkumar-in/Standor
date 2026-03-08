@@ -4,12 +4,10 @@ import axios from 'axios'
 import { rateLimit } from 'express-rate-limit'
 import { requireAuth } from '../middleware/auth.js'
 import { env } from '../config/env.js'
+import { executionService } from '../services/executionService.js'
 
 export const codeRouter = Router()
 codeRouter.use(requireAuth)
-
-// Stricter rate limit for code execution: 20 req / 5 min
-const execLimit = rateLimit({ windowMs: 5 * 60 * 1000, max: 20, standardHeaders: true, legacyHeaders: false })
 
 // GET /api/code/languages
 codeRouter.get('/languages', async (_req, res) => {
@@ -31,7 +29,7 @@ codeRouter.get('/languages', async (_req, res) => {
 })
 
 // POST /api/code/execute
-codeRouter.post('/execute', execLimit, async (req, res) => {
+codeRouter.post('/execute', rateLimit({ windowMs: 5 * 60 * 1000, max: 20 }), async (req, res) => {
     const schema = z.object({
         language: z.string().min(1).max(50),
         code: z.string().min(1).max(50_000),
@@ -47,22 +45,10 @@ codeRouter.post('/execute', execLimit, async (req, res) => {
     const { language, code, stdin } = parsed.data
 
     try {
-        const { data } = await axios.post(
-            `${env.PISTON_URL}/execute`,
-            {
-                language,
-                version: '*',
-                files: [{ content: code }],
-                stdin,
-                run_timeout: 2000,
-                compile_timeout: 10_000,
-                run_memory_limit: 65536,
-            },
-            { timeout: 15_000 },
-        )
-        res.json(data)
-    } catch (e) {
+        const result = await executionService.execute(language, code, stdin)
+        res.json(result)
+    } catch (e: any) {
         console.error('[code/execute]', e)
-        res.status(502).json({ error: 'Code execution failed' })
+        res.status(502).json({ error: e.message || 'Code execution failed' })
     }
 })

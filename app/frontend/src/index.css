@@ -1,135 +1,167 @@
+@import './styles/design-tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-    margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-@layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
-    }
-}
-
-@layer base {
-    * {
-        @apply border-ns-border;
-    }
-
-    body {
-        @apply bg-ns-bg text-ns-text-primary antialiased;
-        font-family: var(--ns-font-ui);
-    }
-
-    ::selection {
-        background-color: #0A84FF4D;
-        /* var(--ns-accent) with 30% alpha (0x4D) */
-        color: var(--ns-white);
-    }
-}
-
 @layer utilities {
-    .ns-hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+  .ns-hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-    .ns-hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+  .ns-hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
-    .ns-container {
-        max-width: 1320px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
+  .ns-container {
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 
-    .ns-section-padding {
-        @apply py-24 sm:py-36;
-    }
+  .ns-section-padding {
+    @apply py-24 sm:py-36;
+  }
+
+  /* Glass panel utility — used by Navbar and other overlays */
+  .ns-glass {
+    background: rgba(11, 11, 13, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .ns-glass-dark {
+    background: rgba(11, 18, 32, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Legacy colour aliases used in older components */
+  .text-ns-accent { color: var(--accent); }
+  .text-ns-grey-300 { color: #C9CDD4; }
+  .text-ns-grey-400 { color: #A6AAB0; }
+  .text-ns-grey-500 { color: #6B7178; }
+  .text-ns-grey-600 { color: #4A4F57; }
+  .text-ns-grey-700 { color: #2E3238; }
+  .bg-ns-bg-900 { background-color: var(--bg-900); }
+  .bg-ns-accent { background-color: var(--accent); }
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Gradient text utility */
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer for skeleton */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #111827 25%, #1f2937 50%, #111827 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+/* Glow ping  */
+@keyframes glow-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(19, 127, 236, 0.6);
+  }
+
+  70% {
+    box-shadow: 0 0 0 12px rgba(19, 127, 236, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(19, 127, 236, 0);
+  }
+}
+
+.animate-glow-ping {
+  animation: glow-ping 2s ease-out infinite;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--ns-bg-900);
+  background: var(--bg-900);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--ns-bg-700);
-    border: 3px solid var(--ns-bg-900);
-    border-radius: 10px;
+  background: var(--surface);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--ns-bg-600);
+  background: var(--border-neutral);
+}
+
+/* Yjs Collaborative Editor Styles */
+.yRemoteSelection {
+  background-color: rgba(100, 150, 255, 0.3);
+}
+
+.yRemoteSelectionHead {
+  position: absolute;
+  border-left: 2px solid rgba(100, 150, 255, 1);
+  border-top: 2px solid rgba(100, 150, 255, 1);
+  border-bottom: 2px solid rgba(100, 150, 255, 1);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.yRemoteSelectionHead::after {
+  position: absolute;
+  content: attr(data-user);
+  background-color: rgba(100, 150, 255, 1);
+  color: #000;
+  padding: 0px 4px;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: var(--font-mono);
+  top: -14px;
+  left: -2px;
+  white-space: nowrap;
+  pointer-events: none;
+  border-radius: 2px;
+  z-index: 10;
 }

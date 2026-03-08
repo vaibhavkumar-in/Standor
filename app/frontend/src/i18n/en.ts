@@ -8,17 +8,12 @@ const en = {
   'nav.howItWorks': 'How It Works',
   'nav.docs': 'Docs',
   'nav.blog': 'Blog',
-  'nav.pricing': 'Pricing',
   'nav.login': 'Sign In',
   'nav.signup': 'Get Started',
 
   // Common
   'common.learnMore': 'Learn more',
   'common.getStarted': 'Get started',
-  'common.requestDemo': 'Request demo',
-  'common.contactSales': 'Contact sales',
-  'common.readMore': 'Read more',
-  'common.tryFree': 'Try for free',
   'common.viewDocs': 'View docs',
   'common.close': 'Close',
   'common.back': 'Back',

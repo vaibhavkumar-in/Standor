@@ -1,68 +1,70 @@
-# Standor — Code Together 
+# Standor — Technical Interview Platform
 
+**Standor** is a high-performance, real-time collaborative coding interview platform designed for modern engineering teams. It features live multi-user editing, WebRTC video/audio, AI-powered evaluation, and deep hiring analytics.
 
-**Standor** is a real-time collaborative coding interview platform with AI-powered evaluation and structured hiring analytics.
+## 🚀 Core Features
 
-## Features
+-   **FAANG-Level Collaboration** — Monaco Editor powered by Yjs for conflict-free, real-time code synchronization with presence indicators.
+-   **Live Communication** — Integrated WebRTC mesh for zero-latency video and audio calling directly in the interview room.
+-   **AI Analysis (Gemini 2.0)** — Automated FAANG-grade evaluation of code complexity, bug detection, and candidate performance.
+-   **Code Execution** — Instant execution for 20+ languages powered by the Piston engine.
+-   **Structured Analytics** — Heatmaps, difficulty breakdown, and candidate pass-rates tracked across all interview cycles.
+-   **Automated Reporting** — Professional PDF-styled interview summaries sent to stakeholders via Nodemailer.
 
-- **Real-time Collaboration** — Monaco Editor with live code syncing via Socket.IO
-- **Code Execution** — Run code in 20+ languages using Piston API
-- **AI Analysis** — DeepSeek Coder via OpenRouter for code evaluation
-- **Email Feedback** — Automated session reports via Nodemailer + Brevo
-- **Authentication** — JWT + Google OAuth
-- **Session Management** — Create, join, and manage interview sessions
-- **Code Snapshots** — Automatic code saving every 30 seconds
-- **Dashboard** — View active and completed sessions
-
-## Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend (`app/frontend`)
-- Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
-- Monaco Editor · Socket.IO Client
+-   **Framework**: React 18 + Vite
+-   **Styling**: Vanilla CSS + Tailwind tokens
+-   **Real-time**: Yjs (CRDT) + Socket.IO-client
+-   **Graphics**: FlowParticles (WebGL)
+-   **UI**: Framer Motion + Radix UI
 
 ### Backend (`app/backend`)
-- Node.js + Express + TypeScript
-- Prisma ORM (MongoDB) · Socket.IO · JWT Auth
+-   **Server**: Node.js + Express + TypeScript
+-   **Database**: MongoDB (Mongoose)
+-   **Real-time**: Socket.IO + Y-Websocket
+-   **Execution**: Piston API integration
+-   **AI**: Gemini 2.0 Flash API
 
-## Project Structure
+## 📂 Project Structure
 
-```
+```bash
 Standor/
 ├── app/
-│   ├── frontend/     # Next.js 14 app
-│   └── backend/      # Express + Prisma API
+│   ├── frontend/     # React + Vite Application
+│   └── backend/      # Express API + Logic
+├── .env.example      # Shared environment template
 └── README.md
 ```
 
-## Getting Started
+## 🏁 Getting Started
 
-### Backend
+### 1. Prerequisites
+-   Node.js (v18+)
+-   MongoDB (Running locally or on Atlas)
 
+### 2. Backend Setup
 ```bash
 cd app/backend
-cp .env.example .env   # fill in DATABASE_URL and JWT_SECRET
 npm install
-npm run migrate        # prisma db push
-npm run dev            # http://localhost:4000
+# Copy e:\Major Project\Standor\.env.example to .env and fill in:
+# MONGO_URI, JWT_SECRET, GEMINI_API_KEY, SMTP_PASS
+npm run build
+npm run dev
 ```
 
-### Frontend
-
+### 3. Frontend Setup
 ```bash
 cd app/frontend
-cp .env.local.example .env.local
 npm install
-npm run dev            # http://localhost:3000
+npm run dev # Default port: http://localhost:5173
 ```
 
-## API Endpoints
-
-- `POST /api/auth/register` — Register
-- `POST /api/auth/login` — Login
-- `POST /api/sessions` — Create session
-- `GET  /api/sessions/:id` — Get session
-- `POST /api/code/execute` — Run code
-- `GET  /api/health` — Health check
+## 🛠️ Infrastructure & Maintenance
+-   **Health Check**: `GET /api/health`
+-   **Rate Limiting**: Configured for `100/15min` (API) and `5/hr` (Auth).
+-   **Maintenance**: Automated CRON job cleans abandonment rooms every hour.
 
 ---
 

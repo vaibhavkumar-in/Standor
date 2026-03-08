@@ -14,26 +14,35 @@ const MODEL_MAPPING = {
 }
 
 function buildPrompt(code: string, language: string): string {
-    return `You are an expert FAANG-level code reviewer. Analyze the following ${language} code and respond ONLY with a valid JSON object. No markdown, no explanation outside JSON.
+    return `You are a Senior Principal Engineer at a top-tier FAANG company. 
+Analyze the following ${language} code for an interview candidate. 
+
+Focus on:
+1. Time and Space Complexity (Big O).
+2. Correctness and potential edge cases (e.g., integer overflow, null pointers, empty inputs).
+3. Code style, maintainability, and idiomatic ${language} patterns.
+4. Hidden performance bottlenecks or memory leaks.
+
+Respond ONLY with a valid JSON object. No markdown, no conversational text.
 
 Code:
 \`\`\`${language}
 ${code}
 \`\`\`
 
-Respond with exactly this JSON shape:
+JSON Shape:
 {
-  "timeComplexity": "O(n)",
+  "timeComplexity": "O(log n) - Binary search pattern",
   "spaceComplexity": "O(1)",
-  "correctness": "string describing correctness",
-  "bugs": ["bug description 1", "bug description 2"],
-  "suggestions": ["suggestion 1", "suggestion 2"],
+  "correctness": "Description of correctness and identified edge cases",
+  "bugs": ["Specific bug 1", "Specific bug 2"],
+  "suggestions": ["Refactoring suggestion 1", "Optimization 2"],
   "testCases": [
-    { "input": "example input", "expectedOutput": "expected", "description": "edge case description" }
+    { "input": "...", "expectedOutput": "...", "description": "Edge case test" }
   ],
-  "codeStyle": "string describing code style and readability",
-  "overallScore": 8,
-  "summary": "one paragraph summary of the solution"
+  "codeStyle": "Critique of variable naming, indentation, and structure",
+  "overallScore": 8.5,
+  "summary": "Concise high-level summary of the candidate's performance."
 }`
 }
 

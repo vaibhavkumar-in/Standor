@@ -19,13 +19,13 @@ export default defineConfig({
     proxy: {
       // All /api calls → backend (bypasses CORS in dev)
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:4000',
         changeOrigin: true,
         secure: false,
       },
       // Socket.IO upgrade
       '/socket.io': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:4000',
         changeOrigin: true,
         ws: true,
         secure: false,

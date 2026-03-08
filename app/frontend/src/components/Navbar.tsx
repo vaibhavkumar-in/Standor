@@ -35,9 +35,8 @@ export default function NavBar() {
 
   const navLinks = [
     { path: '/dashboard', label: 'Dashboard' },
-    { path: '/upload', label: 'Upload' },
-    { path: '/tools/dpi', label: 'DPI Tools' },
-    { path: '/team-rooms', label: 'Team Rooms' },
+    { path: '/create-session', label: 'New Interview' },
+    { path: '/problems', label: 'Problems' },
     { path: '/settings', label: 'Settings' },
   ];
 
@@ -68,7 +67,7 @@ export default function NavBar() {
             data-testid="logo-section"
           >
             <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center transition-transform group-hover:scale-110">
-              <span className="text-black font-bold text-sm">NS</span>
+              <span className="text-black font-bold text-sm">ST</span>
             </div>
             <span className="text-base font-bold text-white tracking-tight hidden sm:block">Standor</span>
           </div>
@@ -149,7 +148,7 @@ export default function NavBar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 z-[-1] bg-ns-bg-900/95 backdrop-blur-2xl transition-all duration-500 md:hidden ${mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none translate-y-[-20px]'
+      <div className={`fixed inset-0 z-[-1] bg-[#0B0B0D]/95 backdrop-blur-2xl transition-all duration-500 md:hidden ${mobileOpen ? 'opacity-100' : 'opacity-0 pointer-events-none translate-y-[-20px]'
         }`}>
         <div className="flex flex-col items-center justify-center h-full gap-8">
           {navLinks.map((link) => (

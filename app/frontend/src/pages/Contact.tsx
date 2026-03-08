@@ -33,15 +33,15 @@ export default function Contact() {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-6">
         <div className="text-center max-w-xl ns-glass p-16 rounded-[3rem] border border-white/10 relative overflow-hidden">
-          <div className="absolute inset-0 bg-ns-success/5 blur-[80px] -z-10" />
-          <div className="w-20 h-20 rounded-full bg-ns-success/10 border border-ns-success/20 flex items-center justify-center mx-auto mb-10 animate-bounce">
-            <CheckCircle2 size={32} className="text-ns-success" />
+          <div className="absolute inset-0 bg-green-500/5 blur-[80px] -z-10" />
+          <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-10 animate-bounce">
+            <CheckCircle2 size={32} className="text-green-400" />
           </div>
-          <h1 className="text-5xl font-bold text-white mb-6 tracking-tighter text-glow">Message received.</h1>
-          <p className="text-xl text-ns-grey-400 mb-12 font-medium">Thanks for reaching out to the Standor team. We'll respond as soon as possible.</p>
+          <h1 className="text-5xl font-bold text-white mb-6 tracking-tighter">Message received.</h1>
+          <p className="text-xl text-[#A6AAB0] mb-12 font-medium">Thanks for reaching out to the Standor team. We'll respond as soon as possible.</p>
           <button
             onClick={() => window.location.href = '/'}
-            className="px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all shadow-2xl"
+            className="px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-neutral-200 transition-all shadow-2xl"
           >
             Return Home
           </button>
@@ -139,7 +139,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 sm:py-5 bg-white text-black rounded-xl sm:rounded-full font-bold hover:bg-ns-grey-100 transition-all disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl active:scale-[0.98]"
+                className="w-full py-4 sm:py-5 bg-white text-black rounded-xl sm:rounded-full font-bold hover:bg-neutral-200 transition-all disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl active:scale-[0.98]"
               >
                 {loading ? <Loader2 size={20} className="animate-spin" /> : <Send size={18} />}
                 Send Message

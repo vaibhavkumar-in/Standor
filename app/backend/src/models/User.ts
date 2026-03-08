@@ -22,6 +22,12 @@ export interface IUser extends Document {
         replacedByToken?: string
         revokedAt?: Date
     }[]
+    verifyEmailToken?: string
+    verifyEmailTokenExpiry?: Date
+    resetPasswordToken?: string
+    resetPasswordTokenExpiry?: Date
+    failedLoginAttempts: number
+    lockoutUntil?: Date
     createdAt: Date
     lastLoginAt: Date
     lastLoginDevice?: string
@@ -49,10 +55,19 @@ const UserSchema: Schema = new Schema({
         replacedByToken: { type: String },
         revokedAt: { type: Date }
     }],
+    verifyEmailToken: { type: String },
+    verifyEmailTokenExpiry: { type: Date },
+    resetPasswordToken: { type: String },
+    resetPasswordTokenExpiry: { type: Date },
+    failedLoginAttempts: { type: Number, default: 0 },
+    lockoutUntil: { type: Date },
     lastLoginAt: { type: Date, default: Date.now },
     lastLoginDevice: { type: String }
 }, {
     timestamps: true
 })
+
+UserSchema.index({ verifyEmailToken: 1 }, { sparse: true })
+UserSchema.index({ resetPasswordToken: 1 }, { sparse: true })
 
 export default mongoose.model<IUser>('User', UserSchema)

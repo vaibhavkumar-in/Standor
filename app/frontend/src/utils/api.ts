@@ -498,4 +498,73 @@ export const analyticsApi = {
   getTeam: (days = 30) => api.get(`/analytics/team?days=${days}`).then(r => r.data),
 };
 
+// ── Interview Rooms ───────────────────────────────────────────────────────────
+
+export interface AIAnalysis {
+  timeComplexity: string;
+  spaceComplexity: string;
+  correctness: number;
+  bugs: string[];
+  suggestions: string[];
+  testCases: string[];
+  codeStyle: string;
+  overallScore: number;
+  summary: string;
+  analyzedAt: string;
+}
+
+export interface InterviewRoom {
+  _id: string;
+  roomId: string;
+  problem: string;
+  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+  language: string;
+  status: 'ACTIVE' | 'COMPLETED';
+  hostId: string;
+  participantId?: string;
+  messages: Array<{ sender: string; text: string; timestamp: string }>;
+  analyses: AIAnalysis[];
+  codeSnapshots: Array<{ content: string; language: string; timestamp: string }>;
+  startedAt: string;
+  endedAt?: string;
+  lastActivityAt?: string;
+}
+
+export interface ExecutionResult {
+  run: { stdout: string; stderr: string; code: number; signal: string | null };
+  compile?: { stdout: string; stderr: string; code: number };
+  language: string;
+  version: string;
+}
+
+export const roomsApi = {
+  getAll: (params?: { page?: number; limit?: number }): Promise<{ rooms: InterviewRoom[]; total: number; page: number; totalPages: number }> =>
+    api.get('/sessions/my-sessions', { params }).then(r => r.data),
+  create: (data: { problem: string; difficulty: 'EASY' | 'MEDIUM' | 'HARD'; language?: string }): Promise<InterviewRoom> =>
+    api.post('/rooms', data).then(r => r.data),
+  getOne: (roomId: string): Promise<InterviewRoom> =>
+    api.get(`/sessions/${roomId}`).then(r => r.data),
+  join: (roomId: string): Promise<{ joined: boolean }> =>
+    api.post(`/sessions/${roomId}/join`).then(r => r.data),
+  analyze: (roomId: string, data: { code: string; language: string }): Promise<{ aiAnalysis: AIAnalysis }> =>
+    api.post(`/sessions/${roomId}/analyze`, data).then(r => r.data),
+  snapshot: (roomId: string, data: { content: string; language: string }): Promise<{ saved: boolean }> =>
+    api.post(`/sessions/${roomId}/snapshot`, data).then(r => r.data),
+  end: (roomId: string): Promise<InterviewRoom> =>
+    api.post(`/sessions/${roomId}/end`).then(r => r.data),
+  delete: (roomId: string): Promise<{ deleted: boolean }> =>
+    api.delete(`/rooms/${roomId}`).then(r => r.data),
+  stats: (): Promise<{ total: number; active: number; completed: number; withParticipant: number; avgScore: number; passRate: number }> =>
+    api.get('/sessions/stats').then(r => r.data),
+  analytics: (): Promise<{ activity: Array<{ week: string; count: number }>; difficulty: Array<{ diff: string; count: number }> }> =>
+    api.get('/sessions/analytics').then(r => r.data),
+};
+
+export const codeExecutionApi = {
+  languages: (): Promise<Array<{ language: string; version: string }>> =>
+    api.get('/execution/languages').then(r => r.data),
+  execute: (data: { language: string; code: string; stdin?: string }): Promise<ExecutionResult> =>
+    api.post('/execution/execute', data).then(r => r.data),
+};
+
 export default api;

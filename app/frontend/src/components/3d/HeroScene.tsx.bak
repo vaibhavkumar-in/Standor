@@ -1,0 +1,79 @@
+// @ts-nocheck
+import { useRef, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Points, PointMaterial } from '@react-three/drei';
+import * as THREE from 'three';
+
+// Procedural particle system representing "Signal Refinement"
+function ParticleSwarm({ count = 4000 }) {
+    const pointsRef = useRef<THREE.Points>(null);
+
+    // Generate random spherical coordinates
+    const particlesPosition = useMemo(() => {
+        const positions = new Float32Array(count * 3);
+        for (let i = 0; i < count; i++) {
+            // Random point in sphere
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r = Math.cbrt(Math.random()) * 2.5; // Radius 2.5
+
+            const x = r * Math.sin(phi) * Math.cos(theta);
+            const y = r * Math.sin(phi) * Math.sin(theta);
+            const z = r * Math.cos(phi);
+
+            positions[i * 3] = x;
+            positions[i * 3 + 1] = y;
+            positions[i * 3 + 2] = z;
+        }
+        return positions;
+    }, [count]);
+
+    useFrame((state) => {
+        if (!pointsRef.current) return;
+        const time = state.clock.getElapsedTime();
+
+        // Slow planetary rotation
+        pointsRef.current.rotation.y = time * 0.05;
+        pointsRef.current.rotation.x = time * 0.02;
+
+        // Pulse effect
+        const scale = 1 + Math.sin(time * 2) * 0.02;
+        pointsRef.current.scale.set(scale, scale, scale);
+    });
+
+    return (
+        <Points ref={pointsRef} positions={particlesPosition} stride={3} frustumCulled={false}>
+            <PointMaterial
+                transparent
+                color="#0EA5A4" // Accent Teal
+                size={0.015}
+                sizeAttenuation={true}
+                depthWrite={false}
+                opacity={0.6}
+                blending={THREE.AdditiveBlending}
+            />
+        </Points>
+    );
+}
+
+export default function HeroScene() {
+    // Respect user motion preferences
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        return null; // The parent component will render the Fallback
+    }
+
+    return (
+        <div className="w-[120vw] h-[120vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+            <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+                <ambientLight intensity={0.5} />
+                <ParticleSwarm count={5000} />
+            </Canvas>
+            {/* Radial soft mask to blend the edges of the canvas */}
+            <div className="absolute inset-0 bg-radial-mask pointer-events-none" style={{ background: 'radial-gradient(circle at center, transparent 30%, var(--bg-900) 70%)' }} />
+        </div>
+    );
+}

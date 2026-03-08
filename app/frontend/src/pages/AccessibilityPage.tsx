@@ -107,7 +107,7 @@ export default function AccessibilityPage() {
         {/* Commitment */}
         <div className="grid lg:grid-cols-2 gap-16 mb-48 items-center">
           <div>
-            <h2 className="text-4xl font-bold text-white tracking-tighter mb-8 text-glow">Our Commitment</h2>
+            <h2 className="text-4xl font-bold text-white tracking-tighter mb-8">Our Commitment</h2>
             <p className="text-xl text-ns-grey-400 leading-relaxed mb-10">
               Standor believes that every developer should be able to participate in technical interviews without barriers. Accessibility is integrated into our design system, engineering standards, and product roadmap.
             </p>

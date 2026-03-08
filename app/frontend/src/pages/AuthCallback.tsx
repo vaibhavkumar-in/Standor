@@ -1,69 +1,46 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import useStore from '../store/useStore';
-import { authApi } from '../utils/api';
+import api from '../lib/api';
 
 export default function AuthCallback() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { setAuth } = useStore();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const token = searchParams.get('token');
-    const redirect = searchParams.get('redirect');
-
     if (!token) {
-      toast.error('Authentication failed');
-      navigate('/login');
+      setError('No authentication token found.');
       return;
     }
 
-    const completeAuth = async () => {
-      try {
-        localStorage.setItem('standor_access_token', token);
-
-        const user = await authApi.me();
-
-        setAuth(user, token, null);
-
-        toast.success(`Welcome to Standor, ${user.name}`);
-
-        navigate(redirect || '/dashboard');
-      } catch (err) {
-        console.error(err);
-
-        toast.error('Failed to complete authentication');
-
-        localStorage.removeItem('standor_access_token');
-
-        navigate('/login');
-      }
-    };
-
-    completeAuth();
-  }, [searchParams, navigate, setAuth]);
+    api.get('/auth/me', { headers: { Authorization: `Bearer ${token}` } })
+      .then(({ data }) => {
+        setAuth(data.user, token);
+        navigate('/dashboard', { replace: true });
+      })
+      .catch(() => {
+        setError('Authentication failed. Please try again.');
+        setTimeout(() => navigate('/login', { replace: true }), 2000);
+      });
+  }, [searchParams, setAuth, navigate]);
 
   return (
-    <div
-      className="min-h-screen bg-ns-bg-900 flex items-center justify-center"
-      data-testid="auth-callback-page"
-    >
-      <div className="text-center">
-        <Loader2
-          size={36}
-          className="animate-spin text-white mx-auto mb-6"
-        />
-
-        <p className="text-sm text-ns-grey-500">
-          Completing authentication...
-        </p>
-
-        <p className="text-xs text-ns-grey-600 mt-2 font-mono tracking-wide">
-          standor.identity.callback
-        </p>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A]">
+      {error ? (
+        <div className="text-center">
+          <p className="text-red-400 text-sm mb-2">{error}</p>
+          <p className="text-neutral-500 text-xs">Redirecting to login...</p>
+        </div>
+      ) : (
+        <div className="flex items-center gap-3">
+          <Loader2 className="w-5 h-5 text-white animate-spin" />
+          <span className="text-sm text-neutral-400">Completing sign-in...</span>
+        </div>
+      )}
     </div>
   );
 }

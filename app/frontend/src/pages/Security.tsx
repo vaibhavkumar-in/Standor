@@ -10,12 +10,12 @@ const CONTROLS = [
   {
     icon: Database,
     title: 'Encryption at Rest',
-    desc: 'PCAP data, annotations, and session metadata are encrypted at rest using AES-256. Bring Your Own Key (BYOK) available for enterprise deployments.',
+    desc: 'Interview data, code snapshots, and session metadata are encrypted at rest using AES-256. Bring Your Own Key (BYOK) available for enterprise deployments.',
   },
   {
     icon: Server,
-    title: 'Sandboxed Parsing',
-    desc: 'PCAP parsing runs in isolated worker processes with strict memory and CPU limits. A malformed file cannot affect other sessions or users.',
+    title: 'Sandboxed Execution',
+    desc: 'Candidate code runs in isolated Piston containers with strict memory, CPU, and network limits. A malicious submission cannot affect other sessions or users.',
   },
   {
     icon: Users,
@@ -35,7 +35,7 @@ const CONTROLS = [
   {
     icon: Eye,
     title: 'Privacy by Design',
-    desc: 'Payload storage is opt-in. Raw packet payloads are never stored unless explicitly enabled per-session. Obfuscation and retention controls are first-class features.',
+    desc: 'Code and chat data are private to room participants. Sessions are never shared with third parties. Retention policies and full GDPR-compliant deletion are first-class features.',
   },
   {
     icon: Key,
@@ -44,8 +44,8 @@ const CONTROLS = [
   },
   {
     icon: AlertTriangle,
-    title: 'Anomaly & Entropy Detection',
-    desc: 'Server-side Shannon entropy scoring flags high-entropy payloads automatically. Policy rules can trigger webhook alerts for suspicious traffic patterns.',
+    title: 'Abuse & Anomaly Detection',
+    desc: 'Server-side rate limiting and behaviour analysis flags abnormal usage automatically. Webhook alerts for suspicious activity patterns are configurable per organization.',
   },
 ];
 
@@ -79,7 +79,7 @@ export default function Security() {
             <span className="text-ns-grey-600">a feature. It's a foundation.</span>
           </h1>
           <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
-            Standor is built for security teams by security engineers. Every layer of the stack is designed with defence-in-depth, least privilege, and zero-trust principles.
+            Standor is built for engineering teams who take candidate data seriously. Every layer of the stack is designed with defence-in-depth, least privilege, and zero-trust principles.
           </p>
         </div>
 
@@ -131,19 +131,19 @@ export default function Security() {
           <div className="absolute inset-0 bg-ns-accent/3 blur-[120px] -z-10" />
           <div className="grid md:grid-cols-2 gap-16">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-6 tracking-tight leading-tight">How your PCAP data is handled</h2>
+              <h2 className="text-3xl font-bold text-white mb-6 tracking-tight leading-tight">How your interview data is handled</h2>
               <div className="space-y-5 text-sm text-ns-grey-400 leading-relaxed">
                 <p>
-                  <strong className="text-white">Cloud deployment:</strong> PCAP files are uploaded over TLS, parsed server-side in an isolated worker, and immediately discarded. Only extracted metadata (packet headers, protocol fields, entropy scores) is persisted. Raw payloads are never stored by default.
+                  <strong className="text-white">Cloud deployment:</strong> Interview sessions, code snapshots, and chat messages are transmitted over TLS and stored encrypted at rest. Only participants in a room can access its content.
                 </p>
                 <p>
-                  <strong className="text-white">On-premises:</strong> The entire platform can be deployed in your own infrastructure. Your raw captures never leave your network. This is the recommended deployment for sensitive forensic investigations.
+                  <strong className="text-white">On-premises:</strong> The entire platform can be deployed in your own infrastructure via Docker Compose. Session data never leaves your network — recommended for highly confidential hiring pipelines.
                 </p>
                 <p>
-                  <strong className="text-white">Payload storage:</strong> Full payload storage is opt-in and disabled by default. When enabled, payloads are encrypted at rest and subject to configurable retention policies.
+                  <strong className="text-white">Code storage:</strong> Code snapshot history is stored per-session and accessible only to the room's host and participant. AI analysis results are stored alongside the session and never shared externally.
                 </p>
                 <p>
-                  <strong className="text-white">Retention:</strong> Sessions and packets can be automatically purged after a configurable number of days. Org admins control retention periods via the settings panel.
+                  <strong className="text-white">Retention:</strong> Sessions can be automatically purged after a configurable number of days. Org admins control retention periods via the settings panel.
                 </p>
               </div>
             </div>

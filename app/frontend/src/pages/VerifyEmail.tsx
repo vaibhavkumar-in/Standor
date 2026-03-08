@@ -57,7 +57,7 @@ export default function VerifyEmail() {
                             </div>
                             <h1 className="text-2xl font-bold text-white">Email Verified!</h1>
                             <p className="text-neutral-400 text-sm leading-relaxed">
-                                Your account is now fully activated. You can now access all of Standor's forensic features.
+                                Your account is now fully activated. You can now create interview sessions and access all platform features.
                             </p>
                             <button
                                 onClick={() => navigate('/login')}

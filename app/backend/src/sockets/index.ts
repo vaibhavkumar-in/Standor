@@ -58,6 +58,16 @@ export const initSocket = (httpServer: HttpServer) => {
 
     httpServer.on('upgrade', (req, socket, head) => {
         if (req.url?.startsWith('/yjs')) {
+            // Verify JWT token from query param for Yjs connections
+            const urlParams = new URLSearchParams(req.url.split('?')[1] || '')
+            const token = urlParams.get('token')
+            if (token) {
+                try { jwt.verify(token, env.JWT_SECRET) } catch {
+                    socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
+                    socket.destroy()
+                    return
+                }
+            }
             wss.handleUpgrade(req, socket, head, (ws) => {
                 wss.emit('connection', ws, req)
             })

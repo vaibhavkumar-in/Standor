@@ -12,14 +12,16 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ArrowLeft, Home } from 'lucide-react';
 
 // ───── Eagerly loaded (critical path — tiny components) ─────
-import Navbar from './components/Navbar';
-import LandingNav from './components/LandingNav';
+import { Navbar } from './components/layout/Navbar';
+import { Footer } from './components/layout/Footer';
 import GridBackground from './components/GridBackground';
 import ProtectedRoute from './components/ProtectedRoute';
 import CookieConsent from './components/CookieConsent';
 import PageShell from './components/PageShell';
 import GlowCursor from './components/GlowCursor';
 import PageTransition from './components/PageTransition';
+import { ErrorBoundary } from './components/ErrorBoundaries';
+import { PageLoader } from './components/Skeletons'; // I should add PageLoader to Skeletons or just keep it here
 
 // ───── Lazy-loaded pages (code split per route) ─────
 // Marketing pages
@@ -48,6 +50,7 @@ const Legal = lazy(() => import('./pages/Legal'));
 const PrivacyData = lazy(() => import('./pages/PrivacyData'));
 const Training = lazy(() => import('./pages/Training'));
 const NewsletterConfirm = lazy(() => import('./pages/NewsletterConfirm'));
+const Demo = lazy(() => import('./pages/Demo')); // Add Demo page
 
 // Auth pages
 const Login = lazy(() => import('./pages/Login'));
@@ -62,6 +65,7 @@ const SharedSession = lazy(() => import('./pages/SharedSession'));
 
 // App pages (protected)
 const Dashboard = lazy(() => import('./pages/Dashboard'));
+const CreateSession = lazy(() => import('./pages/CreateSession'));
 const SessionView = lazy(() => import('./pages/SessionView'));
 const Upload = lazy(() => import('./pages/Upload'));
 const Settings = lazy(() => import('./pages/Settings'));
@@ -70,67 +74,22 @@ const Rules = lazy(() => import('./pages/Rules'));
 const Webhooks = lazy(() => import('./pages/Webhooks'));
 const Admin = lazy(() => import('./pages/Admin'));
 const DpiTools = lazy(() => import('./pages/DpiTools'));
+const Problems = lazy(() => import('./pages/Problems'));
 
 // ───── Apply accessibility on load ─────
 initAccessibility();
 
-// ───── Full-screen page loader ─────
-function PageLoader() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-ns-bg-900">
-      <div className="flex items-center gap-3">
-        <div className="w-5 h-5 rounded-full border-2 border-ns-accent border-t-transparent animate-spin" />
-        <span className="text-[11px] font-mono text-ns-grey-600 uppercase tracking-widest">Loading</span>
-      </div>
-    </div>
-  );
-}
 
 // ───── Error Boundary to prevent full-page crashes ─────
-interface EBProps { children: ReactNode }
-interface EBState { hasError: boolean; error: Error | null }
-
-class ErrorBoundary extends Component<EBProps, EBState> {
-  state: EBState = { hasError: false, error: null };
-
-  static getDerivedStateFromError(error: Error): EBState {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('[Standor ErrorBoundary]', error, info);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-ns-bg-900 px-6">
-          <div className="max-w-md text-center">
-            <div className="text-3xl mb-4">⚠</div>
-            <h2 className="text-xl font-bold text-white mb-3">Something went wrong</h2>
-            <p className="text-sm text-ns-grey-500 mb-6 font-mono">{this.state.error?.message}</p>
-            <button
-              onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload(); }}
-              className="px-6 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:bg-ns-grey-100 transition-all"
-            >
-              Reload Page
-            </button>
-          </div>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
 
 // ───── 404 Page ─────
 function NotFound() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen flex items-center justify-center bg-ns-bg-900" data-testid="not-found-page">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--bg-900)]" data-testid="not-found-page">
       <div className="text-center">
         <h1 className="text-6xl font-bold text-white mb-3">404</h1>
-        <p className="text-base text-neutral-400 mb-6">Page not found</p>
+        <p className="text-base text-muted mb-6">Page not found</p>
         <div className="flex items-center justify-center gap-3">
           <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 border border-white/[0.1] text-neutral-300 rounded-lg text-sm hover:border-white/[0.2] hover:text-white transition-colors">
             <ArrowLeft size={14} /> Go Back
@@ -146,7 +105,7 @@ function NotFound() {
 
 // ───── Route groups ─────
 const authRoutes = ['/login', '/register', '/auth/callback', '/auth/magic', '/forgot-password', '/reset-password', '/verify-email', '/org/accept-invite'];
-const marketingRoutes = ['/contact', '/use-cases', '/features', '/how-it-works', '/customers', '/faq', '/blog', '/docs', '/developers', '/integrations', '/privacy', '/terms', '/system-status', '/status', '/accessibility', '/enterprise', '/about', '/security', '/roi', '/legal', '/gallery', '/privacy-data', '/training'];
+const marketingRoutes = ['/contact', '/use-cases', '/features', '/how-it-works', '/customers', '/faq', '/blog', '/docs', '/developers', '/integrations', '/privacy', '/terms', '/system-status', '/status', '/accessibility', '/enterprise', '/about', '/security', '/roi', '/legal', '/gallery', '/privacy-data', '/training', '/demo'];
 const isBlogPost = (path: string) => path.startsWith('/blog/');
 const isDocsSubpath = (path: string) => path.startsWith('/docs/');
 const isNewsletterConfirm = (path: string) => path === '/newsletter/confirm';
@@ -159,23 +118,24 @@ function AppContent() {
   const location = useLocation();
   const isAuthPage = authRoutes.includes(location.pathname);
   const isMarketingPage = marketingRoutes.includes(location.pathname) || location.pathname === '/' || isBlogPost(location.pathname) || isDocsSubpath(location.pathname) || isNewsletterConfirm(location.pathname);
-  const hideNav = isAuthPage || isMarketingPage;
+
+  // Demo runs as a standalone full-screen route, no global nav/footer
+  const isDemoRoute = location.pathname === '/demo';
 
   useEffect(() => { trackPageview(location.pathname); }, [location.pathname]);
   useEffect(() => onConsentChanged(() => trackPageview(location.pathname)), [location.pathname]);
 
   return (
-    <div className="App relative">
+    <div className="App relative min-h-screen flex flex-col">
       <GlowCursor />
-      {!isAuthPage && !isMarketingPage && <GridBackground interactive={false} />}
-      <div className="relative z-10">
-        {!hideNav && <Navbar />}
-        {isMarketingPage && <LandingNav />}
+      <div className="relative flex-1 flex flex-col">
+        {(!isAuthPage && !isDemoRoute) && <Navbar />}
         <PageTransition>
           <Suspense fallback={<PageLoader />}>
             <Routes>
               {/* Marketing */}
               <Route path="/" element={<MarketingRoute><Landing /></MarketingRoute>} />
+              <Route path="/demo" element={<Demo />} />
               <Route path="/about" element={<MarketingRoute title="About — Standor"><About /></MarketingRoute>} />
               <Route path="/features" element={<MarketingRoute title="Features — Standor"><Features /></MarketingRoute>} />
               <Route path="/how-it-works" element={<MarketingRoute title="How It Works — Standor"><HowItWorks /></MarketingRoute>} />
@@ -219,6 +179,8 @@ function AppContent() {
               <Route path="/tools/dpi" element={<ProtectedRoute><DpiTools /></ProtectedRoute>} />
               <Route path="/tools/*" element={<Navigate to="/tools/dpi" replace />} />
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/create-session" element={<ProtectedRoute><CreateSession /></ProtectedRoute>} />
+              <Route path="/problems" element={<ProtectedRoute><Problems /></ProtectedRoute>} />
               <Route path="/session" element={<ProtectedRoute><SessionView /></ProtectedRoute>} />
               <Route path="/session/:id" element={<ProtectedRoute><SessionView /></ProtectedRoute>} />
               <Route path="/upload" element={<ProtectedRoute><Upload /></ProtectedRoute>} />
@@ -232,6 +194,7 @@ function AppContent() {
             </Routes>
           </Suspense>
         </PageTransition>
+        {(!isAuthPage && !isDemoRoute) && <Footer />}
       </div>
     </div>
   );
