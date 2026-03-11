@@ -13,6 +13,8 @@ const MARKETING_LINKS = [
   { label: "Docs", href: "/docs" },
 ];
 
+const SECTION_SCROLL_OFFSET = 56;
+
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +36,7 @@ export function Navbar() {
       } else {
         const element = document.getElementById(link.section);
         if (element) {
-          const offset = 80;
+          const offset = SECTION_SCROLL_OFFSET;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - offset;
           window.scrollTo({
@@ -56,7 +58,7 @@ export function Navbar() {
       setTimeout(() => {
         const element = document.getElementById(scrollToSection);
         if (element) {
-          const offset = 80;
+          const offset = SECTION_SCROLL_OFFSET;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - offset;
           window.scrollTo({
@@ -118,11 +120,19 @@ export function Navbar() {
         .slice(0, 2)
     : "U";
 
+  const isPathActive = (path: string) =>
+    location.pathname === path || location.pathname.startsWith(`${path}/`);
+
+  const isMarketingLinkActive = (link: (typeof MARKETING_LINKS)[0]) => {
+    if (link.section) return location.pathname === "/";
+    return location.pathname === link.href;
+  };
+
   // ─── APP NAVBAR (Slightly more functional, less marketing-heavy) ───
   if (isAppRoute) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-[100] py-4 pointer-events-none">
-        <div className="ns-container flex items-center justify-between pointer-events-none">
+      <nav className="fixed top-0 left-0 right-0 z-[100] h-20 bg-[#070707]/92 backdrop-blur-xl border-b border-white/5 pointer-events-none">
+        <div className="ns-container h-full flex items-center justify-between pointer-events-none">
           <div
             className="flex items-center gap-2.5 cursor-pointer group pointer-events-auto"
             onClick={() => navigate("/")}
@@ -141,8 +151,8 @@ export function Navbar() {
               <Link
                 to="/dashboard"
                 className={cn(
-                  "text-xs font-bold uppercase tracking-widest transition-colors",
-                  location.pathname === "/dashboard"
+                  "relative text-xs font-bold uppercase tracking-widest transition-colors",
+                  isPathActive("/dashboard")
                     ? "text-white"
                     : "text-neutral-500 hover:text-white",
                 )}
@@ -152,8 +162,8 @@ export function Navbar() {
               <Link
                 to="/problems"
                 className={cn(
-                  "text-xs font-bold uppercase tracking-widest transition-colors",
-                  location.pathname === "/problems"
+                  "relative text-xs font-bold uppercase tracking-widest transition-colors",
+                  isPathActive("/problems")
                     ? "text-white"
                     : "text-neutral-500 hover:text-white",
                 )}
@@ -163,8 +173,8 @@ export function Navbar() {
               <Link
                 to="/team-rooms"
                 className={cn(
-                  "text-xs font-bold uppercase tracking-widest transition-colors",
-                  location.pathname === "/team-rooms"
+                  "relative text-xs font-bold uppercase tracking-widest transition-colors",
+                  isPathActive("/team-rooms")
                     ? "text-white"
                     : "text-neutral-500 hover:text-white",
                 )}
@@ -224,8 +234,8 @@ export function Navbar() {
 
   // ─── MARKETING NAVBAR (Premium pill design) ───
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] py-6 pointer-events-none">
-      <div className="ns-container flex items-center justify-between pointer-events-none">
+    <nav className="fixed top-0 left-0 right-0 z-[100] h-24 bg-[#070707]/90 backdrop-blur-xl border-b border-white/5 pointer-events-none">
+      <div className="ns-container h-full flex items-center justify-between pointer-events-none">
         {/* Logo */}
         <Link
           to="/"
@@ -244,7 +254,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center bg-[rgba(10,10,10,0.7)] backdrop-blur-xl border border-white/10 px-6 py-2 rounded-full pointer-events-auto shadow-2xl">
           <div className="flex items-center gap-1">
             {MARKETING_LINKS.map((link) => {
-              const active = location.pathname === link.href;
+              const active = isMarketingLinkActive(link);
               return (
                 <Link
                   key={link.label}

@@ -10,11 +10,11 @@ export default function Terms() {
   ];
 
   return (
-    <div className="pt-32 pb-24 px-6 bg-[#050505] min-h-screen">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6 bg-[#050505] min-h-screen">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[250px_1fr] gap-16">
+        <div className="grid lg:grid-cols-[250px_1fr] gap-10 lg:gap-16">
           {/* Sidebar */}
-          <aside className="hidden lg:block sticky top-32 h-fit">
+          <aside className="hidden lg:block sticky top-28 h-fit">
             <h5 className="text-[10px] font-mono text-neutral-600 uppercase tracking-widest mb-8">Navigation</h5>
             <ul className="space-y-4">
               {sections.map(s => (
@@ -27,25 +27,25 @@ export default function Terms() {
 
           {/* Content */}
           <article className="max-w-3xl">
-            <div className="mb-20">
-              <h1 className="text-5xl font-bold text-white mb-6 tracking-tighter">Terms of Service</h1>
-              <p className="text-xl text-neutral-400 leading-relaxed font-medium">
+            <div className="mb-14 sm:mb-20">
+              <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 tracking-tighter">Terms of Service</h1>
+              <p className="text-base sm:text-lg md:text-xl text-neutral-400 leading-relaxed font-medium">
                 Effective Date: March 8, 2026. <br />
                 By accessing or using the Standor real-time interview platform, you agree to comply with and be bound by these Terms of Service.
               </p>
             </div>
 
-            <div className="space-y-24">
+            <div className="space-y-14 sm:space-y-20 md:space-y-24">
               <section id="acceptance">
-                <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">{sections[0].title}</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 tracking-tight">{sections[0].title}</h2>
                 <p className="text-neutral-500 leading-relaxed mb-6">
                   Standor ("the Service") is provided by Standor Inc. These Terms govern your access to and use of our collaborative coding, AI evaluation, and reporting services. If you are using the Service on behalf of an enterprise or hiring entity, you represent that you have the authority to bind that organization to these terms.
                 </p>
               </section>
 
               <section id="license">
-                <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">{sections[1].title}</h2>
-                <div className="bg-[#0A0A0A] rounded-3xl border border-white/5 p-10 mb-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 tracking-tight">{sections[1].title}</h2>
+                <div className="bg-[#0A0A0A] rounded-3xl border border-white/5 p-6 sm:p-8 md:p-10 mb-8">
                   <div className="flex items-center gap-4 mb-6">
                     <Scale size={20} className="text-white" />
                     <h4 className="text-white font-bold">Grant of License</h4>
@@ -57,7 +57,7 @@ export default function Terms() {
               </section>
 
               <section id="conduct">
-                <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">{sections[2].title}</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 tracking-tight">{sections[2].title}</h2>
                 <div className="prose prose-invert max-w-none text-neutral-500 space-y-6">
                   <p>You agree NOT to use the Service to:</p>
                   <ul className="space-y-3 list-disc pl-5">
@@ -70,26 +70,26 @@ export default function Terms() {
               </section>
 
               <section id="liability">
-                <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">{sections[3].title}</h2>
-                <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/5 italic text-neutral-500 text-sm leading-relaxed">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 tracking-tight">{sections[3].title}</h2>
+                <div className="p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/5 italic text-neutral-500 text-sm leading-relaxed">
                   "The Service is provided 'AS IS' and 'AS AVAILABLE'. Standor Inc. shall not be liable for any data loss, hiring decisions, or consequence resulting from the use of our code evaluation and AI scoring engines."
                 </div>
               </section>
 
               <section id="termination">
-                <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">{sections[4].title}</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 tracking-tight">{sections[4].title}</h2>
                 <p className="text-neutral-500 leading-relaxed">
                   We reserve the right to suspend or terminate accounts that violate our Acceptable Use Policy or engage in fraudulent activity in execution environments. Upon termination, your right to access the Service will cease immediately, and all stored interview sessions will be queued for permanent deletion.
                 </p>
               </section>
             </div>
 
-            <div className="mt-48 p-12 rounded-[3rem] bg-[#0A0A0A] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-8">
-              <div>
+            <div className="mt-20 md:mt-32 lg:mt-48 p-6 sm:p-8 md:p-12 rounded-3xl md:rounded-[3rem] bg-[#0A0A0A] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
+              <div className="text-center md:text-left">
                 <h3 className="text-xl font-bold text-white mb-2">Need a custom contract?</h3>
                 <p className="text-sm text-white">Available for Enterprise customers.</p>
               </div>
-              <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest py-4 px-8 rounded-full bg-white text-black hover:bg-neutral-200 transition-all">
+              <button className="w-full sm:w-auto justify-center flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest py-3 sm:py-4 px-6 sm:px-8 rounded-full bg-white text-black hover:bg-neutral-200 transition-all">
                 Contact Legal
                 <ArrowRight size={14} />
               </button>

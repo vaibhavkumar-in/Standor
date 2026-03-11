@@ -134,11 +134,11 @@ export default function Webhooks() {
   };
 
   return (
-    <div className="min-h-screen bg-ns-bg-900 pt-16">
-      <div className="max-w-5xl mx-auto px-6 py-10">
+    <div className="min-h-screen bg-ns-bg-900 pt-6 sm:pt-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
               <Webhook size={18} className="text-blue-400" />
@@ -150,7 +150,7 @@ export default function Webhooks() {
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white text-black rounded-xl text-sm font-bold hover:bg-ns-grey-100 transition-colors"
+            className="w-full sm:w-auto justify-center flex items-center gap-2 px-4 py-2.5 bg-white text-black rounded-xl text-sm font-bold hover:bg-ns-grey-100 transition-colors"
           >
             <Plus size={14} />
             Add Webhook
@@ -177,7 +177,7 @@ export default function Webhooks() {
                 <p className="text-xs text-ns-grey-400">This secret will not be shown again. Copy it now and store it securely.</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3">
+            <div className="flex flex-wrap items-center gap-2 bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3">
               <code className="flex-1 text-xs font-mono text-white break-all">
                 {secretVisible ? newSecret.secret : '•'.repeat(Math.min(newSecret.secret.length, 64))}
               </code>
@@ -230,7 +230,7 @@ export default function Webhooks() {
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-ns-grey-500 font-mono mb-3 truncate max-w-md">{wh.url}</p>
+                    <p className="text-xs text-ns-grey-500 font-mono mb-3 break-all sm:truncate sm:max-w-md">{wh.url}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {wh.events.map(ev => (
                         <span key={ev} className="text-[10px] px-2 py-0.5 rounded-full font-mono border bg-white/[0.04] text-ns-grey-400 border-white/[0.08]">
@@ -244,7 +244,7 @@ export default function Webhooks() {
                       </p>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex flex-wrap items-center justify-end gap-2 shrink-0">
                     <button
                       onClick={() => handleTest(wh)}
                       disabled={testing === wh.id}

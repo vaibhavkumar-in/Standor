@@ -104,10 +104,10 @@ export default function Security() {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-32 pb-24 px-6">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
       <div className="ns-container">
         {/* Hero */}
-        <div className="max-w-4xl mb-32">
+        <div className="max-w-4xl mb-14 md:mb-24 lg:mb-32">
           <div className="flex items-center gap-3 mb-8">
             <span className="text-[10px] font-mono text-ns-accent uppercase tracking-[0.4em] px-4 py-1.5 rounded-full bg-ns-accent/10 border border-ns-accent/20">
               Security
@@ -120,7 +120,7 @@ export default function Security() {
               a feature. It's a foundation.
             </span>
           </h1>
-          <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
+          <p className="text-base sm:text-lg md:text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
             Standor is built for engineering teams who take candidate data
             seriously. Every layer of the stack is designed with
             defence-in-depth, least privilege, and zero-trust principles.
@@ -128,7 +128,7 @@ export default function Security() {
         </div>
 
         {/* Security Controls Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-48">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-16 md:mb-32 lg:mb-48">
           {CONTROLS.map((c) => (
             <div
               key={c.title}
@@ -148,9 +148,9 @@ export default function Security() {
         </div>
 
         {/* Compliance Checklist */}
-        <div className="grid lg:grid-cols-2 gap-16 items-start mb-48">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-16 md:mb-32 lg:mb-48">
           <div>
-            <h2 className="text-4xl font-bold text-white tracking-tighter mb-6 leading-[0.95]">
+            <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tighter mb-6 leading-[0.95]">
               Compliance &<br />
               hardening checklist
             </h2>
@@ -194,9 +194,9 @@ export default function Security() {
         </div>
 
         {/* Data Handling Summary */}
-        <div className="ns-glass rounded-[3rem] border border-white/[0.08] p-12 md:p-20 mb-48 relative overflow-hidden">
+        <div className="ns-glass rounded-[3rem] border border-white/[0.08] p-6 sm:p-10 md:p-20 mb-16 md:mb-32 lg:mb-48 relative overflow-hidden">
           <div className="absolute inset-0 bg-ns-accent/3 blur-[120px] -z-10" />
-          <div className="grid md:grid-cols-2 gap-16">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16">
             <div>
               <h2 className="text-3xl font-bold text-white mb-6 tracking-tight leading-tight">
                 How your interview data is handled

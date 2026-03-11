@@ -9,6 +9,20 @@ html {
   scroll-behavior: smooth;
 }
 
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas,
+svg,
+iframe {
+  max-width: 100%;
+}
+
 @layer utilities {
   .ns-hide-scrollbar::-webkit-scrollbar {
     display: none;
@@ -23,8 +37,22 @@ html {
     max-width: 1320px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .ns-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ns-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 
   .ns-section-padding {

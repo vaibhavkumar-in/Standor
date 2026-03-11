@@ -62,26 +62,26 @@ export default function Resources() {
   );
 
   return (
-    <div className="pt-32 pb-24 px-6">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
       <div className="ns-container">
         {/* Header */}
         <motion.div
           initial="initial"
           animate="animate"
           variants={STAGGER}
-          className="max-w-4xl mb-24"
+          className="max-w-4xl mb-12 md:mb-20 lg:mb-24"
         >
           <motion.h1 variants={FADE_UP} className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-10">
             Forensic <br />
             <span className="text-ns-grey-600">intelligence.</span>
           </motion.h1>
-          <motion.p variants={FADE_UP} className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
+          <motion.p variants={FADE_UP} className="text-base sm:text-lg md:text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
             Deep dives into the protocols, mathematics, and workflows that power modern network forensics at scale.
           </motion.p>
         </motion.div>
 
         {/* Filters & Search */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-8 mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -119,7 +119,7 @@ export default function Resources() {
         {/* Grid */}
         <motion.div
           layout
-          className="grid md:grid-cols-2 gap-8 mb-24"
+          className="grid md:grid-cols-2 gap-4 md:gap-8 mb-16 md:mb-24"
         >
           <AnimatePresence mode="popLayout">
             {filteredResources.map((res, i) => (
@@ -130,7 +130,7 @@ export default function Resources() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4 }}
-                className="group ns-glass-dark rounded-[2.5rem] border border-white/[0.05] p-10 hover:border-white/15 transition-all duration-500 flex flex-col gap-12"
+                className="group ns-glass-dark rounded-3xl md:rounded-[2.5rem] border border-white/[0.05] p-6 sm:p-8 md:p-10 hover:border-white/15 transition-all duration-500 flex flex-col gap-8 md:gap-12"
               >
                 <div className="flex justify-between items-start">
                   <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/[0.05] transition-all duration-500 text-white group-hover:text-ns-accent">

@@ -132,7 +132,7 @@ export default function Training() {
       title="Interview Guides — Standor"
       description="Best practices for interviewers and candidates using the Standor real-time coding interview platform."
     >
-      <div className="pt-32 pb-24 px-6">
+      <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
         <div className="ns-container">
 
           {/* Header */}
@@ -146,7 +146,7 @@ export default function Training() {
               Run better interviews.<br />
               <span className="text-ns-grey-600">Get better hires.</span>
             </h1>
-            <p className="text-xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
               Practical guides for interviewers and candidates on how to get the most out of Standor — from problem selection and AI analysis to debrief best practices.
             </p>
           </div>
@@ -219,24 +219,24 @@ export default function Training() {
           </div>
 
           {/* CTA */}
-          <div className="ns-glass-dark rounded-[3.5rem] border border-white/[0.05] p-16 text-center relative overflow-hidden">
+          <div className="ns-glass-dark rounded-3xl md:rounded-[3.5rem] border border-white/[0.05] p-8 sm:p-12 lg:p-16 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-ns-accent/5 blur-[120px] -z-10" />
             <Zap size={32} className="text-ns-accent mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-white mb-4 tracking-tighter">Ready to run your first session?</h2>
             <p className="text-lg text-ns-grey-400 mb-10 max-w-xl mx-auto leading-relaxed">
               Apply what you've learned. Create an interview room in under 30 seconds.
             </p>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
                 onClick={() => navigate('/create-session')}
-                className="group px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center gap-2 shadow-2xl"
+                className="group w-full sm:w-auto justify-center px-8 sm:px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center gap-2 shadow-2xl"
               >
                 New Interview Room
                 <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
               <button
                 onClick={() => navigate('/problems')}
-                className="px-10 py-4 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all"
+                className="w-full sm:w-auto px-8 sm:px-10 py-4 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all"
               >
                 Browse Problems
               </button>

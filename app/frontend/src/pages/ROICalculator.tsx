@@ -147,10 +147,10 @@ export default function ROICalculator() {
   }, [interviewers, interviews, hoursPerInterview]);
 
   return (
-    <div className="pt-32 pb-24 px-6">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
       <div className="ns-container">
         {/* Header */}
-        <div className="max-w-4xl mb-24">
+        <div className="max-w-4xl mb-12 md:mb-20 lg:mb-24">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] mb-10">
             <BarChart2 size={12} className="text-ns-accent" />
             <span className="text-[10px] font-mono text-ns-grey-400 uppercase tracking-widest">
@@ -161,14 +161,14 @@ export default function ROICalculator() {
             See what your team <br />
             <span className="text-ns-grey-600">gets back.</span>
           </h1>
-          <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
+          <p className="text-base sm:text-lg md:text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
             Estimate how much interviewing time Standor can return to your
             engineers — based on AI-assisted code review, automated scoring, and
             real-time collaboration.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-16 mb-24">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-16 mb-16 md:mb-24">
           {/* Inputs */}
           <div className="space-y-12">
             <div>
@@ -180,7 +180,7 @@ export default function ROICalculator() {
               </p>
             </div>
 
-            <div className="ns-glass rounded-[2.5rem] border border-white/[0.04] p-10 space-y-12">
+            <div className="ns-glass rounded-[2.5rem] border border-white/[0.04] p-6 sm:p-8 md:p-10 space-y-10 md:space-y-12">
               <Slider
                 label="Interviewers on team"
                 sublabel="Engineers who participate in technical interviews"
@@ -319,7 +319,7 @@ export default function ROICalculator() {
         </div>
 
         {/* CTA */}
-        <div className="ns-glass-dark rounded-[3.5rem] border border-white/[0.05] p-16 text-center relative overflow-hidden">
+        <div className="ns-glass-dark rounded-3xl md:rounded-[3.5rem] border border-white/[0.05] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-ns-accent/5 blur-[120px] -z-10" />
           <h2 className="text-3xl font-bold text-white mb-4 tracking-tighter">
             Ready to reclaim {results.savedDaysPerMonth} engineer-days per
@@ -329,10 +329,10 @@ export default function ROICalculator() {
             Standor is completely free. Run your first interview session in
             minutes — no credit card, no enterprise lock-in.
           </p>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
               onClick={() => navigate("/register")}
-              className="group px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center gap-2 shadow-2xl"
+              className="group w-full sm:w-auto justify-center px-8 sm:px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center gap-2 shadow-2xl"
             >
               Get Started
               <ArrowRight
@@ -342,7 +342,7 @@ export default function ROICalculator() {
             </button>
             <button
               onClick={() => navigate("/#footer")}
-              className="px-10 py-4 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all"
+              className="w-full sm:w-auto px-8 sm:px-10 py-4 rounded-full border border-white/10 text-white font-bold hover:bg-white/5 transition-all"
             >
               Talk to Us
             </button>

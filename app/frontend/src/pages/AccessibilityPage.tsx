@@ -25,15 +25,15 @@ export default function AccessibilityPage() {
   const { reducedMotion, highContrast, fontSize, toggleReducedMotion, toggleHighContrast, changeFontSize } = useAccessibility();
 
   return (
-    <div className="pt-32 pb-24 px-6">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
       <div className="ns-container">
         {/* Header */}
-        <div className="max-w-4xl mb-32">
+        <div className="max-w-4xl mb-14 md:mb-24 lg:mb-32">
           <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-10">
             Coding interviews for <br />
             <span className="text-ns-grey-600">everyone.</span>
           </h1>
-          <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
+          <p className="text-base sm:text-lg md:text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
             Standor is designed to make technical interviews accessible to every developer. From keyboard-first navigation to screen-reader compatible coding environments, we ensure our platform follows modern accessibility standards.
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function AccessibilityPage() {
         </div>
 
         {/* Core Principles Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-48">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-32 lg:mb-48">
           {[
             { icon: Eye, title: 'Readable Code Interfaces', desc: 'High contrast themes and scalable typography ensure code remains readable during long technical interview sessions.' },
             { icon: Keyboard, title: 'Keyboard-First Navigation', desc: 'Developers can navigate interview rooms, dashboards, and code editors entirely through keyboard shortcuts.' },
@@ -105,7 +105,7 @@ export default function AccessibilityPage() {
         </div>
 
         {/* Commitment */}
-        <div className="grid lg:grid-cols-2 gap-16 mb-48 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 mb-16 md:mb-32 lg:mb-48 items-center">
           <div>
             <h2 className="text-4xl font-bold text-white tracking-tighter mb-8">Our Commitment</h2>
             <p className="text-xl text-ns-grey-400 leading-relaxed mb-10">
@@ -126,13 +126,13 @@ export default function AccessibilityPage() {
             </div>
           </div>
 
-          <div className="ns-glass rounded-[3rem] border border-white/[0.08] p-12 relative overflow-hidden group">
+          <div className="ns-glass rounded-[3rem] border border-white/[0.08] p-6 sm:p-8 md:p-12 relative overflow-hidden group">
             <div className="absolute inset-0 bg-ns-accent/5 blur-[80px] -z-10 group-hover:bg-ns-accent/10 transition-colors" />
             <h3 className="text-2xl font-bold text-white mb-6">Found a barrier?</h3>
             <p className="text-ns-grey-500 mb-10 leading-relaxed">
               If you encounter accessibility barriers while using Standor, please let us know. Your feedback helps us improve the platform and ensure technical interviews remain accessible to everyone.
             </p>
-            <button className="px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center justify-center gap-2">
+            <button className="w-full sm:w-auto px-8 sm:px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center justify-center gap-2">
               Submit Accessibility Feedback
               <ArrowRight size={18} />
             </button>
@@ -140,7 +140,7 @@ export default function AccessibilityPage() {
         </div>
 
         {/* Guidelines Link */}
-        <div className="text-center py-24 border-t border-white/[0.05]">
+        <div className="text-center py-14 md:py-24 border-t border-white/[0.05]">
           <h4 className="text-ns-grey-600 mb-6 uppercase tracking-[0.3em] text-[10px] font-mono">Accessibility Standards</h4>
           <div className="flex flex-wrap justify-center gap-12 grayscale opacity-50">
             <span className="text-white font-black text-2xl tracking-tighter">WCAG 2.1</span>

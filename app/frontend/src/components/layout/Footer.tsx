@@ -49,7 +49,7 @@ export function Footer() {
             </p>
             <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8 pt-1">
               <a
-                href="https://github.com/standor"
+                href="https://github.com/standorhq/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 text-white/80 hover:text-white text-sm font-medium transition-colors duration-200"

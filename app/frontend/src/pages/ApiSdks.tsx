@@ -13,15 +13,15 @@ const ENDPOINTS = [
 
 export default function ApiSdks() {
   return (
-    <div className="pt-32 pb-24 px-6">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
       <div className="ns-container">
         {/* Header */}
-        <div className="max-w-4xl mb-32">
+        <div className="max-w-4xl mb-14 md:mb-24 lg:mb-32">
           <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-10">
             Built for <br />
             <span className="text-ns-grey-600">engineering teams.</span>
           </h1>
-          <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
+          <p className="text-base sm:text-lg md:text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
             Integrate Standor directly into your hiring workflow, engineering platform, or internal tooling using a developer-first REST API.
           </p>
         </div>
@@ -52,14 +52,14 @@ export default function ApiSdks() {
           </p>
           <div className="ns-glass rounded-[2rem] border border-white/[0.04] overflow-hidden">
             {ENDPOINTS.map((ep, i) => (
-              <div key={i} className="group flex items-center justify-between p-6 hover:bg-white/[0.02] transition-all border-b border-white/[0.04] last:border-none">
-                <div className="flex items-center gap-6">
+              <div key={i} className="group flex flex-col md:flex-row md:items-center md:justify-between gap-3 p-4 sm:p-6 hover:bg-white/[0.02] transition-all border-b border-white/[0.04] last:border-none">
+                <div className="flex items-center gap-3 sm:gap-6">
                   <span className={`text-[10px] font-mono font-bold px-3 py-1 rounded-full border ${ep.method === 'GET' ? 'bg-ns-success/5 border-ns-success/20 text-ns-success' : 'bg-ns-accent/5 border-ns-accent/20 text-ns-accent'}`}>
                     {ep.method}
                   </span>
-                  <code className="text-sm font-mono text-white tracking-tight">{ep.path}</code>
+                  <code className="text-xs sm:text-sm font-mono text-white tracking-tight break-all">{ep.path}</code>
                 </div>
-                <span className="text-xs text-ns-grey-600 group-hover:text-ns-grey-400 transition-colors hidden md:block">{ep.desc}</span>
+                <span className="text-xs text-ns-grey-600 group-hover:text-ns-grey-400 transition-colors">{ep.desc}</span>
               </div>
             ))}
           </div>
@@ -135,7 +135,7 @@ export default function ApiSdks() {
         </div>
 
         {/* GitHub Section */}
-        <div className="relative ns-glass-dark rounded-[3.5rem] border border-white/[0.05] p-16 flex flex-col md:flex-row items-center justify-between gap-12 group overflow-hidden">
+        <div className="relative ns-glass-dark rounded-3xl md:rounded-[3.5rem] border border-white/[0.05] p-8 sm:p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 group overflow-hidden">
           <div className="absolute inset-0 bg-ns-accent/5 blur-[120px] -z-10 group-hover:bg-ns-accent/10 transition-colors" />
           <div className="max-w-xl text-center md:text-left">
             <h3 className="text-3xl font-bold text-white mb-4 tracking-tighter">Open Source</h3>

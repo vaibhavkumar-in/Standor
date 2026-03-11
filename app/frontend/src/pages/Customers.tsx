@@ -68,7 +68,7 @@ export default function Customers() {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-32 pb-24 px-6">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
       <div className="ns-container">
         {/* Header */}
         <div className="max-w-4xl mb-24">

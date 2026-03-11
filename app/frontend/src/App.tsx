@@ -193,7 +193,9 @@ function AppContent() {
   return (
     <div className="App relative min-h-screen flex flex-col">
       <GlowCursor />
-      <div className="relative flex-1 flex flex-col">
+      <div
+        className={`relative flex-1 flex flex-col ${!isAuthPage && !isDemoRoute ? "pt-10 md:pt-12" : ""}`}
+      >
         {!isAuthPage && !isDemoRoute && <Navbar />}
         <PageTransition>
           <Suspense fallback={<PageLoader />}>

@@ -145,7 +145,7 @@ export default function Footer() {
           {/* Right: Socials (Vertical List matching image) */}
           <div className="flex flex-col items-start gap-4">
             <a
-              href="https://github.com/standor"
+              href="https://github.com/standorhq/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-ns-grey-600 hover:text-white transition-all duration-300 group"

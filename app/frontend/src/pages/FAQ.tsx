@@ -94,7 +94,7 @@ export default function FAQ() {
     <>
       <FaqJsonLd items={faqItems} />
 
-      <div className="min-h-screen bg-[#0B0B0D] pt-32 pb-24 px-6">
+      <div className="min-h-screen bg-[#0B0B0D] pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
           <motion.div
@@ -108,12 +108,12 @@ export default function FAQ() {
                 Support
               </span>
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.05] mb-6">
               Frequently asked
               <br />
               <span className="text-[#6B7178]">questions.</span>
             </h1>
-            <p className="text-xl text-[#6B7178] leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-[#6B7178] leading-relaxed">
               Answers about Standor's interview platform, real-time
               collaboration, AI evaluation, and code execution.
             </p>
@@ -202,7 +202,7 @@ export default function FAQ() {
                               transition={{ duration: 0.2 }}
                               className="overflow-hidden"
                             >
-                              <p className="px-6 pb-6 text-sm text-[#6B7178] leading-relaxed">
+                              <p className="px-6 pb-6 text-sm text-[#6B7178] leading-relaxed break-words">
                                 {item.a}
                               </p>
                             </motion.div>
@@ -228,7 +228,7 @@ export default function FAQ() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-20 border border-[#1a1a1a] rounded-2xl p-12 text-center bg-[#0B1220]"
+            className="mt-20 border border-[#1a1a1a] rounded-2xl p-6 sm:p-10 md:p-12 text-center bg-[#0B1220]"
           >
             <MessageSquare size={32} className="text-[#137fec] mx-auto mb-5" />
             <h3 className="text-2xl font-bold text-white mb-3">

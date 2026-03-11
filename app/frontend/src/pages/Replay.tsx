@@ -1,10 +1,20 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import Editor, { type OnMount } from '@monaco-editor/react';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Editor, { type OnMount } from "@monaco-editor/react";
 type IStandaloneCodeEditor = Parameters<OnMount>[0];
-import { ArrowLeft, Play, Pause, RotateCcw, FastForward, Clock, Users, MessageSquare, Loader2 } from 'lucide-react';
-import api from '../utils/api';
-import { toast } from 'sonner';
+import {
+  ArrowLeft,
+  Play,
+  Pause,
+  RotateCcw,
+  FastForward,
+  Clock,
+  Users,
+  MessageSquare,
+  Loader2,
+} from "lucide-react";
+import api from "../utils/api";
+import { toast } from "sonner";
 
 interface ReplayEvent {
   type: string;
@@ -37,7 +47,9 @@ export default function Replay() {
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const [currentIdx, setCurrentIdx] = useState(-1);
-  const [chatLog, setChatLog] = useState<Array<{ sender: string; text: string; ts: number }>>([]);
+  const [chatLog, setChatLog] = useState<
+    Array<{ sender: string; text: string; ts: number }>
+  >([]);
 
   const editorRef = useRef<IStandaloneCodeEditor | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -45,44 +57,52 @@ export default function Replay() {
 
   useEffect(() => {
     if (!roomId) return;
-    api.get(`/replay/${roomId}`)
-      .then(r => setData(r.data))
-      .catch(() => toast.error('Failed to load replay'))
+    api
+      .get(`/replay/${roomId}`)
+      .then((r) => setData(r.data))
+      .catch(() => toast.error("Failed to load replay"))
       .finally(() => setLoading(false));
   }, [roomId]);
 
   // Initialize editor with first snapshot
   useEffect(() => {
     if (!data || !editorRef.current) return;
-    editorRef.current.setValue(data.initialSnapshot || '');
+    editorRef.current.setValue(data.initialSnapshot || "");
     setChatLog([]);
     setCurrentIdx(-1);
     idxRef.current = -1;
   }, [data]);
 
   const applyEvent = useCallback((evt: ReplayEvent) => {
-    if (evt.type === 'editor-delta') {
+    if (evt.type === "editor-delta") {
       const editor = editorRef.current;
       if (!editor) return;
       const delta = evt.payload as any;
-      if (typeof delta.code === 'string') {
+      if (typeof delta.code === "string") {
         editor.setValue(delta.code);
       } else if (delta.changes && Array.isArray(delta.changes)) {
         const model = editor.getModel();
         if (model) {
-          model.pushEditOperations([], delta.changes.map((c: any) => ({
-            range: c.range,
-            text: c.text,
-          })), () => null);
+          model.pushEditOperations(
+            [],
+            delta.changes.map((c: any) => ({
+              range: c.range,
+              text: c.text,
+            })),
+            () => null,
+          );
         }
       }
-    } else if (evt.type === 'chat') {
+    } else if (evt.type === "chat") {
       const p = evt.payload as any;
-      setChatLog(prev => [...prev, {
-        sender: String(p.sender || 'Unknown'),
-        text: String(p.text || ''),
-        ts: new Date(evt.timestamp).getTime(),
-      }]);
+      setChatLog((prev) => [
+        ...prev,
+        {
+          sender: String(p.sender || "Unknown"),
+          text: String(p.text || ""),
+          ts: new Date(evt.timestamp).getTime(),
+        },
+      ]);
     }
   }, []);
 
@@ -113,9 +133,18 @@ export default function Replay() {
 
     const curr = data.events[idxRef.current >= 0 ? idxRef.current : 0];
     const nextEvt = data.events[next];
-    const delay = idxRef.current < 0
-      ? 0
-      : Math.min(3000, Math.max(50, (new Date(nextEvt.timestamp).getTime() - new Date(curr.timestamp).getTime()) / speed));
+    const delay =
+      idxRef.current < 0
+        ? 0
+        : Math.min(
+            3000,
+            Math.max(
+              50,
+              (new Date(nextEvt.timestamp).getTime() -
+                new Date(curr.timestamp).getTime()) /
+                speed,
+            ),
+          );
 
     timerRef.current = setTimeout(() => {
       idxRef.current = next;
@@ -128,60 +157,84 @@ export default function Replay() {
   useEffect(() => {
     if (playing) scheduleNext();
     else if (timerRef.current) clearTimeout(timerRef.current);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [playing]);
 
   const handleReset = () => {
     stopReplay();
     if (data && editorRef.current) {
-      editorRef.current.setValue(data.initialSnapshot || '');
+      editorRef.current.setValue(data.initialSnapshot || "");
     }
     setChatLog([]);
     setCurrentIdx(-1);
     idxRef.current = -1;
   };
 
-  const progress = data?.events?.length ? (currentIdx + 1) / data.events.length : 0;
+  const progress = data?.events?.length
+    ? (currentIdx + 1) / data.events.length
+    : 0;
   const totalEvents = data?.events?.length ?? 0;
-  const chatEvents = (data?.events || []).filter(e => e.type === 'chat');
+  const chatEvents = (data?.events || []).filter((e) => e.type === "chat");
 
-  if (loading) return (
-    <div className="min-h-screen bg-bg-900 flex items-center justify-center">
-      <Loader2 size={24} className="animate-spin text-accent" />
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="min-h-screen bg-bg-900 flex items-center justify-center">
+        <Loader2 size={24} className="animate-spin text-accent" />
+      </div>
+    );
 
-  if (!data) return (
-    <div className="min-h-screen bg-bg-900 flex items-center justify-center text-neutral-500 text-sm">
-      Replay not available for this session.
-    </div>
-  );
+  if (!data)
+    return (
+      <div className="min-h-screen bg-bg-900 flex items-center justify-center text-neutral-500 text-sm">
+        Replay not available for this session.
+      </div>
+    );
 
-  const durationS = data.room.startedAt && data.room.endedAt
-    ? Math.round((new Date(data.room.endedAt).getTime() - new Date(data.room.startedAt).getTime()) / 1000)
-    : null;
+  const durationS =
+    data.room.startedAt && data.room.endedAt
+      ? Math.round(
+          (new Date(data.room.endedAt).getTime() -
+            new Date(data.room.startedAt).getTime()) /
+            1000,
+        )
+      : null;
 
   return (
     <div className="min-h-screen bg-bg-900 flex flex-col h-screen overflow-hidden">
       {/* Top Bar */}
-      <div className="flex items-center gap-3 px-4 h-12 border-b border-border shrink-0">
-        <button onClick={() => navigate('/dashboard')} className="flex items-center gap-1.5 text-neutral-500 hover:text-white transition-colors text-xs">
+      <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 min-h-12 py-2 border-b border-border shrink-0 flex-wrap">
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="flex items-center gap-1.5 text-neutral-500 hover:text-white transition-colors text-xs"
+        >
           <ArrowLeft size={14} /> Dashboard
         </button>
         <div className="w-px h-4 bg-border" />
         <div className="flex items-center gap-2">
-          <span className="text-white font-semibold text-sm truncate max-w-xs">{data.room.problem}</span>
-          <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${
-            data.room.difficulty === 'EASY' ? 'text-accent border-accent/20 bg-accent/10' :
-            data.room.difficulty === 'HARD' ? 'text-accent-tertiary border-accent-tertiary/20 bg-accent-tertiary/10' :
-            'text-accent-secondary border-accent-secondary/20 bg-accent-secondary/10'
-          }`}>{data.room.difficulty}</span>
+          <span className="text-white font-semibold text-sm truncate max-w-xs">
+            {data.room.problem}
+          </span>
+          <span
+            className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${
+              data.room.difficulty === "EASY"
+                ? "text-accent border-accent/20 bg-accent/10"
+                : data.room.difficulty === "HARD"
+                  ? "text-accent-tertiary border-accent-tertiary/20 bg-accent-tertiary/10"
+                  : "text-accent-secondary border-accent-secondary/20 bg-accent-secondary/10"
+            }`}
+          >
+            {data.room.difficulty}
+          </span>
         </div>
         <div className="flex-1" />
         {durationS && (
           <div className="flex items-center gap-1.5 text-xs text-neutral-500 font-mono">
             <Clock size={13} />
-            <span>{Math.floor(durationS / 60)}m {durationS % 60}s total</span>
+            <span>
+              {Math.floor(durationS / 60)}m {durationS % 60}s total
+            </span>
           </div>
         )}
         <span className="text-[10px] font-mono text-neutral-600 uppercase tracking-widest bg-white/[0.04] px-2 py-1 rounded">
@@ -189,13 +242,15 @@ export default function Replay() {
         </span>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 flex-col lg:flex-row overflow-hidden">
         {/* Editor */}
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="flex flex-col flex-1 min-h-[45vh] lg:min-h-0 overflow-hidden">
           <Editor
-            language={data.room.language || 'javascript'}
-            defaultValue={data.initialSnapshot || '// No code recorded'}
-            onMount={e => { editorRef.current = e; }}
+            language={data.room.language || "javascript"}
+            defaultValue={data.initialSnapshot || "// No code recorded"}
+            onMount={(e) => {
+              editorRef.current = e;
+            }}
             theme="vs-dark"
             options={{
               fontSize: 13,
@@ -213,7 +268,7 @@ export default function Replay() {
             {/* Seekable Timeline */}
             <div className="flex items-center gap-2">
               <span className="text-[9px] font-mono text-neutral-600 w-8 text-right">
-                {currentIdx < 0 ? '0%' : `${Math.round(progress * 100)}%`}
+                {currentIdx < 0 ? "0%" : `${Math.round(progress * 100)}%`}
               </span>
               <input
                 type="range"
@@ -225,17 +280,23 @@ export default function Replay() {
                   if (!data) return;
                   stopReplay();
                   // Rebuild state by replaying all events up to targetIdx
-                  if (editorRef.current) editorRef.current.setValue(data.initialSnapshot || '');
+                  if (editorRef.current)
+                    editorRef.current.setValue(data.initialSnapshot || "");
                   setChatLog([]);
                   const newChat: typeof chatLog = [];
                   for (let i = 0; i <= targetIdx; i++) {
                     const evt = data.events[i];
-                    if (evt.type === 'editor-delta') {
+                    if (evt.type === "editor-delta") {
                       const delta = evt.payload as any;
-                      if (typeof delta.code === 'string' && editorRef.current) editorRef.current.setValue(delta.code);
-                    } else if (evt.type === 'chat') {
+                      if (typeof delta.code === "string" && editorRef.current)
+                        editorRef.current.setValue(delta.code);
+                    } else if (evt.type === "chat") {
                       const p = evt.payload as any;
-                      newChat.push({ sender: String(p.sender || ''), text: String(p.text || ''), ts: new Date(evt.timestamp).getTime() });
+                      newChat.push({
+                        sender: String(p.sender || ""),
+                        text: String(p.text || ""),
+                        ts: new Date(evt.timestamp).getTime(),
+                      });
                     }
                   }
                   setChatLog(newChat);
@@ -243,21 +304,26 @@ export default function Replay() {
                   idxRef.current = targetIdx;
                 }}
                 className="flex-1 accent-blue-500 h-1.5 cursor-pointer"
-                style={{ accentColor: 'var(--accent, #137fec)' }}
+                style={{ accentColor: "var(--accent, #137fec)" }}
               />
-              <span className="text-[9px] font-mono text-neutral-600 w-8">100%</span>
+              <span className="text-[9px] font-mono text-neutral-600 w-8">
+                100%
+              </span>
             </div>
 
             <div className="flex items-center gap-3">
-              <button onClick={handleReset} className="p-1.5 text-neutral-500 hover:text-white transition-colors">
+              <button
+                onClick={handleReset}
+                className="p-1.5 text-neutral-500 hover:text-white transition-colors"
+              >
                 <RotateCcw size={14} />
               </button>
               <button
-                onClick={() => setPlaying(p => !p)}
+                onClick={() => setPlaying((p) => !p)}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white rounded-lg text-xs font-bold hover:bg-accent-secondary transition-colors"
               >
                 {playing ? <Pause size={12} /> : <Play size={12} />}
-                {playing ? 'Pause' : currentIdx < 0 ? 'Play' : 'Resume'}
+                {playing ? "Pause" : currentIdx < 0 ? "Play" : "Resume"}
               </button>
               <button
                 onClick={stepForward}
@@ -272,11 +338,11 @@ export default function Replay() {
 
               {/* Speed */}
               <div className="flex items-center gap-1">
-                {SPEEDS.map(s => (
+                {SPEEDS.map((s) => (
                   <button
                     key={s}
                     onClick={() => setSpeed(s)}
-                    className={`px-2 py-0.5 text-[10px] font-mono rounded transition-colors ${speed === s ? 'bg-white text-black font-bold' : 'text-neutral-500 hover:text-white'}`}
+                    className={`px-2 py-0.5 text-[10px] font-mono rounded transition-colors ${speed === s ? "bg-white text-black font-bold" : "text-neutral-500 hover:text-white"}`}
                   >
                     {s}×
                   </button>
@@ -291,16 +357,22 @@ export default function Replay() {
         </div>
 
         {/* Right: Chat Replay */}
-        <div className="w-72 border-l border-border bg-bg-900 flex flex-col shrink-0">
+        <div className="w-full lg:w-72 max-h-[40vh] lg:max-h-none border-t lg:border-t-0 lg:border-l border-border bg-bg-900 flex flex-col shrink-0">
           <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
             <MessageSquare size={13} className="text-neutral-500" />
-            <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Chat Replay</span>
-            <span className="ml-auto text-[9px] text-neutral-600 font-mono">{chatEvents.length} msgs</span>
+            <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
+              Chat Replay
+            </span>
+            <span className="ml-auto text-[9px] text-neutral-600 font-mono">
+              {chatEvents.length} msgs
+            </span>
           </div>
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {chatLog.map((m, i) => (
               <div key={i} className="flex flex-col gap-0.5">
-                <span className="text-[9px] text-neutral-600 font-mono">{m.sender}</span>
+                <span className="text-[9px] text-neutral-600 font-mono">
+                  {m.sender}
+                </span>
                 <div className="glass-panel px-3 py-1.5 rounded-xl text-xs text-neutral-300 max-w-full">
                   {m.text}
                 </div>

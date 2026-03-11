@@ -97,7 +97,7 @@ function ActiveCard({ room, onCopy, copied }: ActiveCardProps) {
   const participants = (room.participantId ? 2 : 1);
 
   return (
-    <div className="min-w-[320px] max-w-[360px] bg-[#0D1117] border border-white/[0.08] rounded-2xl p-5 flex flex-col gap-4 flex-shrink-0 hover:border-white/[0.16] transition-colors duration-200">
+    <div className="w-[85vw] max-w-[360px] sm:w-[360px] bg-[#0D1117] border border-white/[0.08] rounded-2xl p-5 flex flex-col gap-4 flex-shrink-0 hover:border-white/[0.16] transition-colors duration-200">
       {/* Header */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
@@ -318,12 +318,12 @@ export default function TeamRoom() {
   return (
     <div className="min-h-screen bg-[#0B0B0D] text-white">
       {/* ── Page wrapper ── */}
-      <div className="max-w-[1320px] mx-auto px-6 py-10 space-y-10">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-10">
 
         {/* ── Header ── */}
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-3xl font-bold text-white tracking-tight">Interview Rooms</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Interview Rooms</h1>
             <p className="text-[#6B7178] text-sm mt-1">
               Manage your live and completed coding interview sessions
             </p>
@@ -405,7 +405,7 @@ export default function TeamRoom() {
               {/* "New room" ghost card */}
               <button
                 onClick={() => navigate('/create-session')}
-                className="min-w-[200px] max-w-[200px] bg-[#0D1117] border border-dashed border-white/[0.12] rounded-2xl p-5 flex flex-col items-center justify-center gap-3 flex-shrink-0 text-[#6B7178] hover:border-[#137fec]/50 hover:text-[#137fec] hover:bg-[#137fec]/[0.04] transition-all duration-200"
+                className="w-[75vw] max-w-[200px] sm:w-[200px] bg-[#0D1117] border border-dashed border-white/[0.12] rounded-2xl p-5 flex flex-col items-center justify-center gap-3 flex-shrink-0 text-[#6B7178] hover:border-[#137fec]/50 hover:text-[#137fec] hover:bg-[#137fec]/[0.04] transition-all duration-200"
               >
                 <div className="w-10 h-10 rounded-lg border border-dashed border-current flex items-center justify-center">
                   <Plus size={18} />
@@ -426,8 +426,8 @@ export default function TeamRoom() {
               </span>
             </div>
 
-            <div className="bg-[#0D1117] border border-white/[0.08] rounded-2xl overflow-hidden">
-              <table className="w-full text-left">
+            <div className="bg-[#0D1117] border border-white/[0.08] rounded-2xl overflow-hidden overflow-x-auto">
+              <table className="w-full min-w-[760px] text-left">
                 <thead>
                   <tr className="text-[#6B7178] text-xs uppercase tracking-wider">
                     <th className="py-3 pl-4 pr-2 font-medium">Problem</th>

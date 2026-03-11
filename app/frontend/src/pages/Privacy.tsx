@@ -10,11 +10,11 @@ export default function Privacy() {
   ];
 
   return (
-    <div className="pt-32 pb-24 px-6 bg-[#050505] min-h-screen">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6 bg-[#050505] min-h-screen">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[250px_1fr] gap-16">
+        <div className="grid lg:grid-cols-[250px_1fr] gap-10 lg:gap-16">
           {/* Sidebar Navigation */}
-          <aside className="hidden lg:block sticky top-32 h-fit">
+          <aside className="hidden lg:block sticky top-28 h-fit">
             <h5 className="text-[10px] font-mono text-neutral-600 uppercase tracking-widest mb-8">On this page</h5>
             <ul className="space-y-4">
               {sections.map(s => (
@@ -27,15 +27,15 @@ export default function Privacy() {
 
           {/* Content */}
           <article className="max-w-3xl">
-            <div className="mb-20">
-              <h1 className="text-5xl font-bold text-white mb-6 tracking-tighter">Privacy & Data Sovereignty</h1>
-              <p className="text-xl text-neutral-400 leading-relaxed font-medium">
+            <div className="mb-14 sm:mb-20">
+              <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 tracking-tighter">Privacy & Data Sovereignty</h1>
+              <p className="text-base sm:text-lg md:text-xl text-neutral-400 leading-relaxed font-medium">
                 Last Updated: March 8, 2026. <br />
                 Standor is designed for engineering teams who demand complete control over their hiring data. Our privacy model is built on transparency and least privilege.
               </p>
             </div>
 
-            <div className="space-y-24">
+            <div className="space-y-14 sm:space-y-20 md:space-y-24">
               <section id="data-collection">
                 <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">{sections[0].title}</h2>
                 <div className="prose prose-invert max-w-none text-neutral-500 space-y-6">
@@ -52,7 +52,7 @@ export default function Privacy() {
 
               <section id="encryption">
                 <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">{sections[1].title}</h2>
-                <div className="bg-[#0A0A0A] rounded-3xl border border-white/5 p-10 mb-8 flex items-center gap-8">
+                <div className="bg-[#0A0A0A] rounded-3xl border border-white/5 p-6 sm:p-8 md:p-10 mb-8 flex items-center gap-4 sm:gap-8">
                   <div className="w-16 h-16 rounded-2xl bg-neutral-900 border border-white/10 flex items-center justify-center text-white shrink-0">
                     <Lock size={24} />
                   </div>
@@ -89,7 +89,7 @@ export default function Privacy() {
             </div>
 
             {/* Support CTA */}
-            <div className="mt-32 pt-16 border-t border-white/[0.05] text-center md:text-left">
+            <div className="mt-20 md:mt-32 pt-10 md:pt-16 border-t border-white/[0.05] text-center md:text-left">
               <h4 className="text-white font-bold mb-4">Questions about our privacy infrastructure?</h4>
               <button className="flex items-center gap-2 text-[10px] font-bold text-white uppercase tracking-widest group">
                 Contact our Data Officer

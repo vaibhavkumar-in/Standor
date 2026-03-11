@@ -136,7 +136,7 @@ export default function PrivacyData() {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-32 pb-24 px-6 bg-ns-bg-900">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6 bg-ns-bg-900">
       <div className="ns-container max-w-5xl">
         {/* Header */}
         <motion.div

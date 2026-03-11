@@ -81,25 +81,25 @@ export default function UseCases() {
   const navigate = useNavigate();
 
   return (
-    <div className="pt-32 pb-24 px-6">
+    <div className="pt-16 md:pt-24 lg:pt-32 pb-16 md:pb-24 px-4 sm:px-6">
       <div className="ns-container">
         {/* Header */}
-        <div className="max-w-4xl mb-24">
+        <div className="max-w-4xl mb-12 md:mb-20 lg:mb-24">
           <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-bold text-white leading-[0.9] tracking-tighter mb-10">
             Engineered for <br />
             <span className="text-ns-grey-600">every scenario.</span>
           </h1>
-          <p className="text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
+          <p className="text-lg sm:text-xl md:text-2xl text-ns-grey-400 leading-relaxed font-medium max-w-2xl">
             From high-stakes incident response to routine compliance audits. Standor provides the visibility your team needs to move faster.
           </p>
         </div>
 
         {/* Use Case Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-48">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-16 md:mb-32 lg:mb-48">
           {USE_CASES.map((uc, i) => (
             <div
               key={i}
-              className="group relative flex flex-col rounded-[2.5rem] bg-ns-bg-900 border border-white/[0.05] p-10 hover:border-white/10 transition-all duration-500 overflow-hidden"
+              className="group relative flex flex-col rounded-3xl md:rounded-[2.5rem] bg-ns-bg-900 border border-white/[0.05] p-6 sm:p-8 md:p-10 hover:border-white/10 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative z-10">
@@ -107,7 +107,7 @@ export default function UseCases() {
                   <uc.icon size={24} className="text-white group-hover:text-ns-accent transition-colors" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">{uc.title}</h3>
-                <p className="text-sm text-ns-grey-500 leading-relaxed mb-10 min-h-[80px]">{uc.desc}</p>
+                <p className="text-sm text-ns-grey-500 leading-relaxed mb-10 min-h-0 md:min-h-[80px]">{uc.desc}</p>
 
                 <div className="space-y-4 mb-12">
                   <div className="text-[10px] font-bold text-ns-grey-600 uppercase tracking-widest mb-1">Key Benefits</div>
@@ -132,11 +132,11 @@ export default function UseCases() {
         </div>
 
         {/* Industry Focus */}
-        <div className="ns-glass-dark rounded-[3.5rem] border border-white/[0.05] p-16 relative overflow-hidden">
+        <div className="ns-glass-dark rounded-3xl md:rounded-[3.5rem] border border-white/[0.05] p-6 sm:p-10 lg:p-16 relative overflow-hidden">
           <div className="absolute inset-0 bg-ns-accent/5 blur-[120px] -z-10" />
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-white mb-6 tracking-tighter">Built for every <br />hiring context.</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 tracking-tighter">Built for every <br />hiring context.</h2>
               <p className="text-lg text-ns-grey-400 mb-8">
                 From early-career grad hiring to senior staff assessments — Standor adapts to your team's evaluation criteria, problem library, and reporting needs.
               </p>
@@ -153,7 +153,7 @@ export default function UseCases() {
                 <div className="text-3xl font-bold text-white">65%</div>
                 <div className="text-[10px] font-mono text-ns-grey-500 uppercase tracking-widest">Less Prep Time</div>
               </div>
-              <div className="ns-glass p-8 rounded-3xl border border-white/5 space-y-2 translate-y-8">
+              <div className="ns-glass p-6 sm:p-8 rounded-3xl border border-white/5 space-y-2 lg:translate-y-8">
                 <div className="text-3xl font-bold text-white">10×</div>
                 <div className="text-[10px] font-mono text-ns-grey-500 uppercase tracking-widest">Screening Throughput</div>
               </div>
@@ -162,11 +162,11 @@ export default function UseCases() {
         </div>
 
         {/* Final CTA */}
-        <div className="mt-48 text-center">
+        <div className="mt-20 md:mt-32 lg:mt-48 text-center">
           <h3 className="text-2xl font-bold text-white mb-10">Ready to see Standor in action?</h3>
           <button
             onClick={() => navigate('/register')}
-            className="group px-12 py-5 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center gap-2 mx-auto shadow-2xl"
+            className="group px-8 sm:px-12 py-4 sm:py-5 bg-white text-black rounded-full font-bold hover:bg-ns-grey-100 transition-all flex items-center gap-2 mx-auto shadow-2xl"
           >
             Get Started
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
